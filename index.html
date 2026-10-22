@@ -1,0 +1,3418 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>MINI HOME</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #2d4a6e;
+        --lime: #a6e64a;
+        --lime-l: #e6f8bd;
+        --sky: #7fd4ff;
+        --sky-l: #d9f2ff;
+        --card: #fff;
+        --bg: #c8ecff;
+        --dot: #fff;
+        --sub: #5d7a99;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --ink: #cfe9ff;
+          --card: #1e3345;
+          --bg: #12222e;
+          --dot: #1c3345;
+          --lime-l: #2f4a1f;
+          --sky-l: #1b3a50;
+          --sub: #8fb0cc;
+        }
+      }
+      :root[data-theme="dark"] {
+        --ink: #cfe9ff;
+        --card: #1e3345;
+        --bg: #12222e;
+        --dot: #1c3345;
+        --lime-l: #2f4a1f;
+        --sky-l: #1b3a50;
+        --sub: #8fb0cc;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        background-image: radial-gradient(var(--dot) 1.3px, transparent 1.6px);
+        background-size: 14px 14px;
+        color: var(--ink);
+        font-family: "Jua", "Apple SD Gothic Neo", sans-serif;
+        font-size: 14px;
+      }
+      .app {
+        max-width: 390px;
+        margin: 0 auto;
+        padding: 12px 12px 96px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .box {
+        background: var(--card);
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        box-shadow: 4px 4px 0 var(--sky);
+        position: relative;
+      }
+      .hd {
+        background: linear-gradient(#bdf06b, #94da3c);
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        box-shadow: 4px 4px 0 var(--sky);
+        padding: 10px 12px 12px;
+        position: relative;
+      }
+      .hd .t {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0;
+      }
+      .ttl {
+        font-size: 20px;
+        color: #fff;
+        letter-spacing: 0.5px;
+        text-shadow:
+          -1.5px 0 var(--ink),
+          1.5px 0 var(--ink),
+          0 -1.5px var(--ink),
+          0 1.5px var(--ink),
+          1.5px 1.5px var(--ink),
+          -1.5px -1.5px var(--ink),
+          1.5px -1.5px var(--ink),
+          -1.5px 1.5px var(--ink);
+      }
+      .cnt {
+        display: flex;
+        gap: 8px;
+      }
+      .c {
+        flex: 1;
+        background: #fff;
+        color: #2d4a6e;
+        border: 2px solid var(--ink);
+        border-radius: 14px;
+        padding: 6px 8px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+        box-shadow: 2px 2px 0 var(--ink);
+      }
+      .c:nth-child(1) {
+        background: #fff0f6;
+      }
+      .c:nth-child(2) {
+        background: #eaf8ff;
+      }
+      .c span {
+        font-size: 11.5px;
+        letter-spacing: 1.5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .c span:before {
+        content: "★";
+        color: #ff6f9c;
+      }
+      .c:nth-child(2) span:before {
+        content: "♡";
+        color: #3aa6e0;
+      }
+      .c b {
+        display: flex;
+        gap: 2px;
+        font-weight: 400;
+      }
+      .c b u {
+        text-decoration: none;
+        font-family: "Press Start 2P", monospace;
+        font-size: 11px;
+        width: 16px;
+        padding: 5px 0 4px;
+        text-align: center;
+        background: #fff;
+        color: #2d4a6e;
+        border: 2px solid #2d4a6e;
+        border-radius: 6px;
+        box-shadow: 0 2px 0 var(--sky);
+      }
+      .room {
+        padding: 8px 8px 10px;
+      }
+      .rt {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 2px 7px;
+      }
+      .chip {
+        font-size: 11px;
+        padding: 2px 9px;
+        border-radius: 99px;
+        border: 2px solid var(--ink);
+        background: var(--lime);
+        color: #274a10;
+      }
+      .chip.b {
+        background: var(--sky);
+        color: #0f3a5c;
+      }
+      .frame {
+        width: 336px;
+        max-width: 100%;
+        margin: 0 auto;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        line-height: 0;
+      }
+      .frame svg {
+        width: 100%;
+        height: auto;
+      }
+      .bub {
+        position: absolute;
+        left: 118px;
+        top: 76px;
+        width: 96px;
+        background: #fff;
+        color: #2d4a6e;
+        border: 2px solid #2d4a6e;
+        border-radius: 10px;
+        font-size: 11px;
+        line-height: 1.25;
+        padding: 5px 6px;
+        text-align: center;
+      }
+      .bub:after {
+        content: "";
+        position: absolute;
+        left: 44px;
+        bottom: -7px;
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        border: solid #2d4a6e;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+      .stk {
+        position: absolute;
+        line-height: 0;
+        filter: drop-shadow(1px 0 0 #2d4a6e) drop-shadow(-1px 0 0 #2d4a6e)
+          drop-shadow(0 1px 0 #2d4a6e) drop-shadow(0 -1px 0 #2d4a6e);
+      }
+      .s1 {
+        left: -6px;
+        top: -12px;
+        transform: rotate(-14deg);
+      }
+      .s2 {
+        right: -4px;
+        bottom: -12px;
+        transform: rotate(10deg);
+      }
+      .s3 {
+        right: 22px;
+        top: -9px;
+        transform: rotate(8deg);
+      }
+      .st {
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+      .tag {
+        font-size: 10.5px;
+        padding: 1px 8px;
+        border-radius: 99px;
+        background: var(--lime);
+        border: 2px solid var(--ink);
+        color: #274a10;
+        flex: none;
+      }
+      .tag.b {
+        background: var(--sky);
+        color: #0f3a5c;
+      }
+      .row em {
+        font-style: normal;
+        background: #ff6f9c;
+        color: #fff;
+        border-radius: 99px;
+        padding: 0 6px;
+        font-size: 10px;
+      }
+      .row small {
+        color: var(--sub);
+      }
+      nav {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: min(100%, 390px);
+        background: var(--card);
+        border: 2px solid var(--ink);
+        border-bottom: 0;
+        border-radius: 22px 22px 0 0;
+        padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2px;
+        box-shadow: 0 -3px 0 var(--sky);
+      }
+      nav button {
+        all: unset;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 7px 0 5px;
+        border-radius: 14px;
+        font-family: inherit;
+        font-size: 11px;
+        color: var(--ink);
+        position: relative;
+      }
+      nav button.on {
+        background: var(--lime-l);
+        box-shadow: inset 0 0 0 2px var(--ink);
+      }
+      nav .ic {
+        overflow: visible;
+        filter: drop-shadow(1px 0 0 var(--ink)) drop-shadow(-1px 0 0 var(--ink))
+          drop-shadow(0 1px 0 var(--ink)) drop-shadow(0 -1px 0 var(--ink));
+      }
+      nav i {
+        position: absolute;
+        top: 2px;
+        right: 12px;
+        width: 8px;
+        height: 8px;
+        background: #ff6f9c;
+        border: 2px solid var(--card);
+        border-radius: 50%;
+        box-sizing: content-box;
+      }
+
+      .pg {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .pg.on {
+        display: flex;
+      }
+      .row {
+        flex-wrap: wrap;
+      }
+      .tabs {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .tab {
+        font-size: 11.5px;
+        padding: 2px 10px;
+        border-radius: 99px;
+        border: 2px solid var(--ink);
+        background: var(--card);
+      }
+      .tab.on {
+        background: var(--lime);
+        color: #274a10;
+      }
+      .grid,
+      .found {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .found {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .it,
+      .found div {
+        aspect-ratio: 1;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        background: var(--sky-l);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        line-height: 0;
+      }
+      .it.sel {
+        background: var(--lime-l);
+        box-shadow: 0 0 0 3px var(--lime);
+      }
+      .it.lock,
+      .found .e {
+        border-style: dashed;
+        background: none;
+        color: var(--sub);
+        line-height: 1.2;
+      }
+      .btn {
+        all: unset;
+        cursor: pointer;
+        box-sizing: border-box;
+        background: var(--lime);
+        color: #274a10;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        padding: 8px 0;
+        text-align: center;
+        box-shadow: 3px 3px 0 var(--ink);
+        font-family: inherit;
+        font-size: 14px;
+        width: 100%;
+      }
+      .btn.sm {
+        width: auto;
+        padding: 6px 16px;
+        flex: none;
+      }
+      .paper {
+        padding: 14px;
+      }
+      .paper h2 {
+        margin: 0 0 2px;
+        font-size: 18px;
+        font-weight: 400;
+      }
+      .by {
+        margin: 0 0 8px;
+        font-size: 11px;
+        color: var(--sub);
+      }
+      .poem,
+      .paper textarea {
+        line-height: 27px;
+        font-size: 14px;
+        margin: 0;
+        background-image: repeating-linear-gradient(
+          transparent 0 25px,
+          var(--sky) 25px 27px
+        );
+      }
+      .poem {
+        white-space: pre-line;
+      }
+      .paper textarea {
+        font-family: inherit;
+        color: var(--ink);
+        border: 0;
+        outline: 0;
+        resize: none;
+        width: 100%;
+        height: 189px;
+        padding: 0;
+      }
+      .ttl2 {
+        font-family: inherit;
+        font-size: 17px;
+        color: var(--ink);
+        background: none;
+        border: 0;
+        border-bottom: 2px dashed var(--ink);
+        outline: 0;
+        width: 100%;
+        padding: 4px 0;
+        margin-bottom: 8px;
+      }
+      .dots {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .dots i {
+        width: 13px;
+        height: 13px;
+        border: 2px solid var(--ink);
+        border-radius: 4px;
+        background: var(--card);
+      }
+      .dots i.f {
+        background: var(--lime);
+      }
+      .dots i.c {
+        background: var(--sky);
+      }
+      .say {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .wr {
+        display: flex;
+        gap: 8px;
+      }
+      .wr input {
+        flex: 1;
+        min-width: 0;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--ink);
+        background: var(--card);
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        padding: 7px 10px;
+        outline: 0;
+      }
+      .tools {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 10px;
+      }
+      .sk {
+        border: 2px solid var(--ink);
+        border-radius: 10px;
+        padding: 5px;
+        line-height: 0;
+        background: var(--sky-l);
+      }
+      .tools .btn {
+        margin-left: auto;
+      }
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%) translateY(8px);
+        background: var(--ink);
+        color: var(--card);
+        border-radius: 99px;
+        padding: 7px 14px;
+        font-size: 12.5px;
+        opacity: 0;
+        transition: 0.2s;
+        pointer-events: none;
+        z-index: 9;
+        white-space: nowrap;
+        max-width: 92vw;
+      }
+      #toast.on {
+        opacity: 1;
+        transform: translateX(-50%);
+      }
+      .srow {
+        display: flex;
+        gap: 6px;
+        align-items: stretch;
+      }
+      .stc {
+        flex: 1;
+        aspect-ratio: 1;
+        border: 2px dashed var(--sub);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        color: var(--sub);
+        line-height: 1;
+        gap: 1px;
+      }
+      .stc.on {
+        border: 2px solid var(--ink);
+        background: #ffe3ee;
+        color: #e0457b;
+        box-shadow: 2px 2px 0 var(--ink);
+        transform: rotate(-6deg);
+      }
+      .stc b {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .stc small {
+        font-size: 8px;
+        color: var(--sub);
+      }
+      .rwd {
+        flex: none;
+        width: 58px;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        background: var(--card);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        font-size: 10px;
+        padding: 3px 0;
+        filter: grayscale(1);
+        opacity: 0.7;
+      }
+      .rwd.got {
+        filter: none;
+        opacity: 1;
+        background: #fff6c9;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .stc.pop {
+          animation: pop 0.5s;
+        }
+        .pulse {
+          animation: pu 1.6s ease-in-out infinite;
+        }
+      }
+      @keyframes pop {
+        0% {
+          transform: scale(2.4) rotate(-40deg);
+          opacity: 0;
+        }
+        70% {
+          transform: scale(0.9) rotate(-6deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1) rotate(-6deg);
+        }
+      }
+      @keyframes pu {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.04);
+        }
+      }
+      .stbk {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .stt {
+        background: var(--sky-l);
+        border: 2px solid var(--ink);
+        border-radius: 14px;
+        padding: 8px 4px 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        min-height: 86px;
+        cursor: pointer;
+      }
+      .stt b {
+        font-size: 24px;
+        font-weight: 400;
+        color: var(--sub);
+      }
+      .stt small {
+        font-size: 11px;
+      }
+      .popst {
+        background: var(--sky-l);
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        padding: 14px 12px 10px;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .popst {
+          animation: bnc 0.7s;
+        }
+      }
+      @keyframes bnc {
+        0% {
+          transform: scale(0.3) rotate(-12deg);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.12) rotate(4deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .ftx {
+        width: 100%;
+        box-sizing: border-box;
+        background: var(--sky-l);
+        border: 2px solid var(--ink);
+        border-radius: 16px;
+        padding: 18px 14px;
+        line-height: 1.75;
+        font-size: 15px;
+        white-space: pre-wrap;
+        word-break: keep-all;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .ftx {
+          animation: bnc 0.6s;
+        }
+      }
+      .qb {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 2px;
+      }
+      .qk {
+        position: relative;
+        font: inherit;
+        color: #3a3350;
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        padding: 12px 6px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        box-shadow: 3px 3px 0 var(--ink);
+        cursor: pointer;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s;
+      }
+      .qk:active {
+        transform: translate(2px, 2px);
+        box-shadow: 1px 1px 0 var(--ink);
+      }
+      .qk .qi {
+        font-size: 26px;
+        line-height: 1.1;
+      }
+      .qk b {
+        font-size: 15px;
+        font-weight: 400;
+      }
+      .qk small {
+        font-size: 11px;
+        opacity: 0.75;
+      }
+      .qk.at {
+        background: linear-gradient(160deg, #ffe9f1, #ffc3d9);
+      }
+      .qk.fo {
+        background: linear-gradient(160deg, #efe7ff, #cdbcf7);
+      }
+      .qk:after {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 13px;
+      }
+      .qk.at:after {
+        content: "♡";
+        color: #ff6f9c;
+      }
+      .qk.fo:after {
+        content: "✦";
+        color: #8a6bd6;
+      }
+      .qk.done {
+        filter: saturate(0.6);
+      }
+      .qb.one {
+        grid-template-columns: 1fr;
+      }
+      .qb.one .qk {
+        flex-direction: row;
+        gap: 10px;
+        padding: 12px 14px;
+        justify-content: center;
+      }
+      .qk.gm {
+        background: linear-gradient(160deg, #eaffd6, #bdf08f);
+      }
+      .qk.gm:after {
+        content: "★";
+        color: #5aa832;
+      }
+      .qk.big {
+        padding: 20px 8px 16px;
+      }
+      .qk.big .qi {
+        font-size: 38px;
+      }
+      .fcs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .fc {
+        aspect-ratio: 3/4;
+        font: inherit;
+        font-size: 34px;
+        border: 2px solid var(--ink);
+        border-radius: 14px;
+        background: linear-gradient(160deg, #efe7ff, #cdbcf7);
+        box-shadow: 3px 3px 0 var(--ink);
+        cursor: pointer;
+        transition: transform 0.12s;
+      }
+      .fc:active {
+        transform: translate(2px, 2px);
+      }
+      .fc.on {
+        background: linear-gradient(160deg, #fff6c9, #ffd84d);
+      }
+      .fc.off {
+        opacity: 0.45;
+        filter: grayscale(0.4);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .fc.on {
+          animation: bnc 0.6s;
+        }
+      }
+      .ib {
+        border: 0;
+        background: none;
+        cursor: pointer;
+        font-size: 13px;
+        padding: 0 3px;
+        opacity: 0.7;
+      }
+      .qk.ma {
+        background: linear-gradient(160deg, #fff0d6, #ffd9a0);
+      }
+      .qk.ma:after {
+        content: "♦";
+        color: #ff9a3d;
+      }
+      .qk.cp {
+        background: linear-gradient(160deg, #e0f4ff, #a9dcff);
+      }
+      .qk.cp:after {
+        content: "●";
+        color: #3aa6e0;
+      }
+      .mg {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .mcd {
+        aspect-ratio: 1;
+        font: inherit;
+        font-size: 24px;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        background: linear-gradient(160deg, #fff0d6, #ffd9a0);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+      }
+      .mcd.f {
+        background: var(--sky-l);
+      }
+      .mcd.d {
+        background: var(--sky-l);
+        opacity: 0.55;
+      }
+      .cmach {
+        font-size: 56px;
+        line-height: 1.2;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .cmach.shake {
+          animation: shk 0.5s;
+        }
+      }
+      @keyframes shk {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20% {
+          transform: rotate(-14deg);
+        }
+        40% {
+          transform: rotate(12deg);
+        }
+        60% {
+          transform: rotate(-8deg);
+        }
+        80% {
+          transform: rotate(6deg);
+        }
+      }
+      .btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      .dayrow {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 2px 2px 4px;
+      }
+      .daybadge {
+        flex: none;
+        width: 66px;
+        height: 66px;
+        border: 2px solid var(--ink);
+        border-radius: 18px;
+        background: linear-gradient(#fff3a6, #ffd84d);
+        box-shadow: 3px 3px 0 var(--ink);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        transform: rotate(-5deg);
+        color: #5a3d00;
+        position: relative;
+      }
+      .daybadge:before,
+      .daybadge:after {
+        content: "✦";
+        position: absolute;
+        font-size: 11px;
+        color: #ff6f9c;
+      }
+      .daybadge:before {
+        top: -8px;
+        right: -6px;
+      }
+      .daybadge:after {
+        bottom: -7px;
+        left: -6px;
+        color: var(--sky);
+      }
+      .daybadge small {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+      .daybadge b {
+        font-family: "Press Start 2P", monospace;
+        font-weight: 400;
+        font-size: 17px;
+      }
+      .dtxt {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+      }
+      .dtxt .big {
+        font-size: 17px;
+        line-height: 1.25;
+      }
+      .wx {
+        font-size: 12px;
+        background: var(--sky-l);
+        border: 2px solid var(--ink);
+        border-radius: 99px;
+        padding: 0 8px;
+      }
+      .wx:empty {
+        display: none;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .daybadge {
+          animation: wig 2.6s ease-in-out infinite;
+        }
+      }
+      @keyframes wig {
+        0%,
+        100% {
+          transform: rotate(-5deg);
+        }
+        50% {
+          transform: rotate(4deg) translateY(-2px);
+        }
+      }
+      #dl {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      #hint,
+      #ic,
+      .sk,
+      .ent,
+      .tab,
+      .it,
+      .room .frame {
+        cursor: pointer;
+      }
+      .tab,
+      .it {
+        user-select: none;
+      }
+      .ent {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+        border-top: 2px dashed var(--sky);
+        padding-top: 7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="hd">
+        <div class="t"><span class="ttl">✿ MINI HOME ✿</span></div>
+
+        <div class="stk s3" data-s="sp"></div>
+      </header>
+
+      <div class="pg on" id="home">
+        <section class="box room">
+          <div class="rt">
+            <span class="chip">MINI ROOM</span
+            ><span class="chip b">★ 꾸미는 중</span>
+          </div>
+          <div class="frame">
+            <svg
+              id="room"
+              viewBox="0 0 84 63"
+              shape-rendering="crispEdges"
+            ></svg>
+            <div class="bub" id="bub">오늘도 놀러와줘서 고마워~ ♡</div>
+          </div>
+          <div class="stk s1" data-s="star"></div>
+          <div class="stk s2" data-s="heart"></div>
+        </section>
+
+        <section class="box st">
+          <div class="dayrow">
+            <div class="daybadge"><small>DAY</small><b id="dnum">01</b></div>
+            <div class="dtxt">
+              <div>
+                <span class="tag">TODAY IS</span>
+                <span id="dwx" class="wx"></span>
+              </div>
+              <div class="big" id="tdy">♪ 기분 좋은 하루~</div>
+              <small id="hdt" style="color: var(--sub)"></small>
+            </div>
+          </div>
+          <div class="row" id="ic">
+            <span class="tag b">일촌</span><span id="ic1">♡ 12명</span
+            ><small id="ic2">· 새 소식</small><em id="icn">N</em>
+          </div>
+          <div class="qb one">
+            <button class="qk at" id="goatt">
+              <span class="qi">🐾</span><b>출석하기</b
+              ><small id="gosub">오늘 도장 찍기</small>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <div class="pg" id="deco">
+        <section class="box room">
+          <div class="rt">
+            <span class="chip">탭해서 놓기 · 드래그 · 더블탭 삭제</span
+            ><span class="chip b" id="own">보유 5 / 8</span>
+          </div>
+          <div class="frame">
+            <svg
+              id="room2"
+              viewBox="0 0 84 63"
+              shape-rendering="crispEdges"
+            ></svg>
+          </div>
+        </section>
+        <section class="box st">
+          <div class="tabs" id="mode">
+            <span class="tab on" data-m="r">🏠 미니룸</span
+            ><span class="tab" data-m="c">🙂 캐릭터</span>
+          </div>
+          <div class="tabs" id="sub"></div>
+          <div class="grid" id="items"></div>
+          <div class="row">
+            <span class="tag b">다음 보상</span
+            ><span id="nxt">출석 3일 더 하면 새 아이템!</span>
+          </div>
+          <div class="wr">
+            <button class="btn" id="undo">되돌리기</button
+            ><button class="btn" id="save">저장하기</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="pg" id="att">
+        <section class="box st">
+          <div class="row">
+            <button class="btn sm" id="attb">← 홈</button
+            ><span class="tag b">출석 이벤트</span
+            ><small id="atts" style="margin-left: auto"></small>
+          </div>
+          <div style="text-align: center; line-height: 1.5">
+            <div style="font-size: 18px">매일 도장 쾅! ♡</div>
+            <small style="color: var(--sub)"
+              >도장 5개를 모을 때마다 새 의상이 열려요</small
+            >
+          </div>
+          <button class="btn" id="stp">🐾 오늘 도장 찍기</button>
+        </section>
+        <section class="box st" id="board" style="gap: 8px"></section>
+      </div>
+
+      <div class="pg" id="poem">
+        <div class="tabs" id="pmode">
+          <span class="tab on">오늘의 시</span
+          ><span class="tab">📚 전체 보기</span>
+        </div>
+        <div
+          id="pls"
+          style="display: none; flex-direction: column; gap: 12px"
+        ></div>
+        <section class="box st" id="pnav">
+          <div class="row" style="justify-content: space-between">
+            <button class="btn sm" id="pp1">◀</button><small id="pnl"></small
+            ><button class="btn sm" id="pp2">▶</button>
+          </div>
+        </section>
+        <section class="box paper">
+          <h2 id="pt"></h2>
+          <p class="by" id="pa">샘플 시 · 미니홈</p>
+          <p class="poem" id="pp"></p>
+        </section>
+        <section class="box st">
+          <div style="text-align: center; font-size: 14px">
+            마음에 드는 한 줄을 따라 써봐~
+          </div>
+          <div id="cm" style="display: contents"></div>
+          <div class="wr">
+            <input id="ci" placeholder="오늘의 한줄평 ✎" /><button
+              class="btn sm"
+              id="cb"
+            >
+              등록
+            </button>
+          </div>
+        </section>
+        <section class="box st" id="devbox">
+          <div class="row">
+            <span class="tag b">테스트용</span
+            ><small>친구에게 주기 전에 없앨 거예요</small>
+          </div>
+          <div class="wr" style="flex-wrap: wrap">
+            <button class="btn" id="dev1">도장 +1</button
+            ><button class="btn" id="dev2">스티커 +1</button
+            ><button class="btn" id="dev3">운세 초기화</button
+            ><button class="btn" id="dev4">코인 +5</button
+            ><button class="btn" id="rst">DAY 1 초기화</button
+            ><button class="btn" id="lo">로그아웃</button
+            ><button class="btn" id="devall">전체 초기화</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="pg" id="bun">
+        <div id="hub" style="display: flex; flex-direction: column; gap: 12px">
+          <section class="box st">
+            <div class="row">
+              <span class="tag b">놀이터</span
+              ><span class="chip b" id="hcoin" style="margin-left: auto"
+                >🪙 0</span
+              >
+            </div>
+            <div class="qb">
+              <button class="qk gm big" id="hgame">
+                <span class="qi">🐰</span><b>토끼 찾기</b
+                ><small>숨은 토끼를 찾아봐</small></button
+              ><button class="qk fo big" id="hfort">
+                <span class="qi">🔮</span><b>오늘의 운세</b
+                ><small>카드를 한 장 골라봐</small></button
+              ><button class="qk ma big" id="hmatch">
+                <span class="qi">🃏</span><b>짝 맞추기</b
+                ><small>모은 스티커로</small></button
+              ><button class="qk cp big" id="hcap">
+                <span class="qi">🎰</span><b>캡슐뽑기</b
+                ><small>꾸미기 아이템</small>
+              </button>
+            </div>
+          </section>
+        </div>
+        <div
+          id="mview"
+          style="display: none; flex-direction: column; gap: 12px"
+        >
+          <section class="box st">
+            <div class="row">
+              <button class="btn sm" id="bkm">← 놀이터</button
+              ><span class="tag b">짝 맞추기</span
+              ><small id="mi" style="margin-left: auto"></small>
+            </div>
+            <div style="text-align: center; line-height: 1.5">
+              <small style="color: var(--sub)" id="mmsg"></small>
+            </div>
+            <div class="mg" id="mg"></div>
+            <button class="btn" id="mre">다시 섞기</button>
+          </section>
+        </div>
+        <div
+          id="cview"
+          style="display: none; flex-direction: column; gap: 12px"
+        >
+          <section class="box st">
+            <div class="row">
+              <button class="btn sm" id="bkc">← 놀이터</button
+              ><span class="tag b">캡슐뽑기</span
+              ><span class="chip b" id="ccoin" style="margin-left: auto"></span>
+            </div>
+            <div style="text-align: center; line-height: 1.5">
+              <div id="cmach" class="cmach">🎰</div>
+              <small style="color: var(--sub)"
+                >🪙 3개로 꾸미기 아이템을 뽑아요</small
+              >
+            </div>
+            <button class="btn" id="cpull">캡슐 뽑기 (🪙 3)</button>
+            <div class="row">
+              <span class="tag">내 아이템</span
+              ><small id="cown" style="margin-left: auto"></small>
+            </div>
+            <div class="stbk" id="cgrid"></div>
+          </section>
+        </div>
+        <div
+          id="fview"
+          style="display: none; flex-direction: column; gap: 12px"
+        >
+          <section class="box st">
+            <div class="row">
+              <button class="btn sm" id="bkf">← 놀이터</button
+              ><span class="tag b">오늘의 운세</span
+              ><small id="fhint" style="margin-left: auto"></small>
+            </div>
+            <div style="text-align: center">
+              <small style="color: var(--sub)"
+                >마음에 드는 카드를 한 장 골라봐 ♡</small
+              >
+            </div>
+            <div class="fcs" id="fcs"></div>
+          </section>
+        </div>
+        <section class="box st">
+          <div class="row">
+            <button class="btn sm" id="bkg">← 놀이터</button
+            ><span class="tag">토끼 게임</span><span>숨은 토끼를 찾아봐!</span>
+          </div>
+          <div class="row">
+            <span class="tag b">발견</span><span id="fc">3 / 5</span
+            ><small style="margin-left: auto" id="hint">힌트 ♡ ×2</small>
+          </div>
+          <div class="row" id="lvr">
+            <span class="tag">난이도</span><span class="tab on">🌱 쉬움</span
+            ><span class="tab">🌿 보통</span><span class="tab">🌳 어려움</span
+            ><button class="btn sm" id="ng" style="margin-left: auto">
+              새로하기
+            </button>
+          </div>
+        </section>
+        <section class="box room">
+          <div class="frame">
+            <svg
+              id="field"
+              viewBox="0 0 84 63"
+              shape-rendering="crispEdges"
+            ></svg>
+          </div>
+        </section>
+        <section class="box st"><div class="found" id="found"></div></section>
+        <section class="box st">
+          <div class="row">
+            <span class="tag b">스티커북</span
+            ><small id="stn" style="margin-left: auto"></small>
+          </div>
+          <div class="stbk" id="stb"></div>
+        </section>
+      </div>
+
+      <div class="pg" id="diary">
+        <div class="tabs" id="dmode">
+          <span class="tab on">✎ 쓰기</span
+          ><span class="tab">📖 일기 목록</span>
+        </div>
+        <div
+          id="dls"
+          style="display: none; flex-direction: column; gap: 12px"
+        ></div>
+        <section class="box st">
+          <div class="row">
+            <span class="tag">DIARY</span><span id="dd">2026.09.30 수요일</span>
+          </div>
+          <div class="row" id="wr">
+            <small>날씨</small><span class="tab on">맑음</span
+            ><span class="tab">흐림</span><span class="tab">비</span
+            ><span class="tab">눈</span>
+          </div>
+          <div class="row" id="mr">
+            <small>기분</small><span class="tab on">신남</span
+            ><span class="tab">평온</span><span class="tab">피곤</span
+            ><span class="tab">몽글</span>
+          </div>
+        </section>
+        <section class="box paper">
+          <input class="ttl2" id="dt" placeholder="제목을 적어줘" />
+          <textarea
+            id="dx"
+            placeholder="오늘 있었던 일, 하고 싶은 말을 적어봐 ✎"
+          ></textarea>
+          <div class="tools">
+            <span class="sk" data-s="star"></span
+            ><span class="sk" data-s="heart"></span
+            ><span class="sk" data-s="sp"></span>
+            <div style="display: flex; gap: 8px; width: 100%">
+              <button class="btn" id="ds" style="flex: 1">저장</button
+              ><button class="btn" id="ddel" style="flex: 1">삭제</button>
+            </div>
+          </div>
+        </section>
+        <section class="box st">
+          <div class="tag b" style="align-self: flex-start">지난 일기</div>
+          <div id="dl"></div>
+        </section>
+      </div>
+
+      <div
+        id="login"
+        style="
+          position: fixed;
+          inset: 0;
+          z-index: 30;
+          background: var(--bg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+        "
+      >
+        <div
+          class="box"
+          style="
+            width: 100%;
+            max-width: 340px;
+            padding: 20px 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+          "
+        >
+          <div class="hd"><span class="ttl">✿ MINI HOME ✿</span></div>
+          <p id="lgm" style="margin: 0; line-height: 1.5">불러오는 중…</p>
+          <div id="lgf" style="display: none; flex-direction: column; gap: 8px">
+            <input
+              id="em"
+              type="email"
+              autocomplete="username"
+              placeholder="이메일"
+              style="
+                font: inherit;
+                padding: 9px 12px;
+                border: 2px solid var(--ink);
+                border-radius: 12px;
+                background: var(--card);
+                color: var(--ink);
+                outline: 0;
+              "
+            /><input
+              id="pw"
+              type="password"
+              autocomplete="current-password"
+              placeholder="비밀번호"
+              style="
+                font: inherit;
+                padding: 9px 12px;
+                border: 2px solid var(--ink);
+                border-radius: 12px;
+                background: var(--card);
+                color: var(--ink);
+                outline: 0;
+              "
+            /><button class="btn" id="lgb">들어가기</button>
+          </div>
+          <button class="btn" id="rt" style="display: none">다시 시도</button>
+        </div>
+      </div>
+      <div
+        id="intro"
+        style="
+          position: fixed;
+          inset: 0;
+          z-index: 20;
+          background: var(--bg);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+        "
+      >
+        <div
+          class="box"
+          style="
+            width: 100%;
+            max-width: 340px;
+            padding: 20px 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+          "
+        >
+          <div class="hd"><span class="ttl">✿ MINI HOME ✿</span></div>
+          <p style="margin: 0; line-height: 1.6">
+            여행하는 동안 하루에 한 편씩<br />시가 도착해요 ♡<br /><small
+              style="color: var(--sub)"
+              >시작하기를 누른 날이 DAY 1이 돼요</small
+            >
+          </p>
+          <button class="btn" id="go">시작하기</button>
+        </div>
+      </div>
+      <div
+        id="pop"
+        style="
+          position: fixed;
+          inset: 0;
+          z-index: 25;
+          background: rgba(40, 60, 90, 0.55);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+        "
+      >
+        <div
+          class="box"
+          style="
+            width: 100%;
+            max-width: 300px;
+            padding: 20px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <div id="pttl" style="font-size: 17px"></div>
+          <div id="pstk" class="popst"></div>
+          <div id="pnm" style="font-size: 15px"></div>
+          <button class="btn" id="pok">확인</button>
+        </div>
+      </div>
+      <div
+        id="fpop"
+        style="
+          position: fixed;
+          inset: 0;
+          z-index: 25;
+          background: rgba(40, 60, 90, 0.55);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+        "
+      >
+        <div
+          class="box"
+          style="
+            width: 100%;
+            max-width: 320px;
+            padding: 22px 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+          "
+        >
+          <div style="font-size: 17px">🔮 오늘의 운세</div>
+          <small id="fdt" style="color: var(--sub)"></small>
+          <div id="ftx" class="ftx"></div>
+          <button class="btn" id="fok">확인</button>
+        </div>
+      </div>
+      <div id="toast"></div>
+      <nav>
+        <button class="on" data-i="home">홈</button>
+        <button data-i="deco">꾸미기</button>
+        <button data-i="poem">오늘의 시</button>
+        <button data-i="bun">놀이터<i id="nb"></i></button>
+        <button data-i="diary">다이어리</button>
+      </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="poems.js"></script>
+    <script>
+      const SB_URL = "https://xvjjmwbxegjzadnznubq.supabase.co",
+        SB_KEY = "sb_publishable_i9IxTYV4y4fOCVHaOc5yMQ_W3CA52Sx";
+      const USE_DB = true; // false: 로그인/DB 없이 이 브라우저에만 저장 (테스트용) · true: 로그인 + Supabase DB 저장
+      const SB = USE_DB ? supabase.createClient(SB_URL, SB_KEY) : null,
+        E = (id) => document.getElementById(id);
+      let CACHE = {};
+      const dirty = {};
+      let tmr;
+      function save(k, v) {
+        CACHE[k] = v;
+        if (!USE_DB) {
+          try {
+            localStorage.setItem("mh:" + k, JSON.stringify(v));
+          } catch (e) {}
+          return;
+        }
+        dirty[k] = v;
+        clearTimeout(tmr);
+        tmr = setTimeout(flush, 600);
+      }
+      async function flush() {
+        if (!USE_DB) return;
+        clearTimeout(tmr);
+        const rows = Object.entries(dirty).map(([key, value]) => ({
+          key,
+          value,
+        }));
+        if (!rows.length) return;
+        rows.forEach((r) => delete dirty[r.key]);
+        const { error } = await SB.from("store").upsert(rows);
+        if (error) {
+          rows.forEach((r) => {
+            if (!(r.key in dirty)) dirty[r.key] = r.value;
+          });
+          window.tst && tst("저장이 안 됐어 ㅠ 인터넷을 확인해줘");
+        }
+      }
+      async function wipeAll() {
+        CACHE = {};
+        for (const k in dirty) delete dirty[k];
+        clearTimeout(tmr);
+        if (USE_DB) {
+          await SB.from("store").delete().neq("key", "");
+        } else {
+          Object.keys(localStorage)
+            .filter((k) => k.startsWith("mh:"))
+            .forEach((k) => localStorage.removeItem(k));
+        }
+      }
+      async function delKeys(ks) {
+        ks.forEach((k) => {
+          delete CACHE[k];
+          delete dirty[k];
+        });
+        if (!USE_DB) {
+          ks.forEach((k) => {
+            try {
+              localStorage.removeItem("mh:" + k);
+            } catch (e) {}
+          });
+          return;
+        }
+        await SB.from("store").delete().in("key", ks);
+      }
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) flush();
+      });
+      function parsePoems(t) {
+        const ps = [];
+        t.replace(/\r/g, "")
+          .split(/\n\s*-{3,}\s*(?:\n|$)/)
+          .forEach((b) => {
+            const L = b.trim().split("\n"),
+              m = (L[0] || "").trim().match(/^(\d+)\s*\.\s*(.+?)\s+-\s+(.+?)$/);
+            if (!m) return;
+            const body = L.slice(1).join("\n").trim();
+            if (body) ps.push([+m[1], m[3], body, m[2]]);
+          });
+        return ps.sort((a, b) => a[0] - b[0]).map((q) => [q[1], q[2], q[3]]);
+      }
+      const say = (m) => (E("lgm").textContent = m);
+      async function loadForts() {
+        try {
+          const r = await fetch("fortunes.json", { cache: "no-cache" });
+          if (r.ok)
+            window.FORTS = (await r.json())
+              .map((x) =>
+                String(
+                  typeof x === "string"
+                    ? x
+                    : (x &&
+                        (x["문장"] ||
+                          x["내용"] ||
+                          x.text ||
+                          Object.values(x)[0])) ||
+                        "",
+                )
+                  .replace(/\r/g, "")
+                  .trim(),
+              )
+              .filter(Boolean);
+        } catch (e) {}
+      }
+      async function loadPoems() {
+        let j = null;
+        try {
+          const r = await fetch("poems.json", { cache: "no-cache" });
+          if (r.ok) j = await r.json();
+        } catch (e) {}
+        window.POEMS = (j || window.POEMS || [])
+          .map((p) =>
+            Array.isArray(p)
+              ? p
+              : [
+                  String(p["제목"] || "").trim(),
+                  String(p["내용"] || "")
+                    .replace(/\r/g, "")
+                    .trim(),
+                  String(p["시인"] || "").trim(),
+                ],
+          )
+          .filter((p) => p[0] && p[1]);
+      }
+      async function boot() {
+        if (!USE_DB) {
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k.startsWith("mh:"))
+              try {
+                CACHE[k.slice(3)] = JSON.parse(localStorage.getItem(k));
+              } catch (e) {}
+          }
+          await loadPoems();
+          await loadForts();
+          E("login").style.display = "none";
+          return app();
+        }
+        const {
+          data: { session },
+        } = await SB.auth.getSession();
+        if (!session) {
+          E("lgf").style.display = "flex";
+          say("로그인해줘 ♡");
+          return;
+        }
+        const { data, error } = await SB.from("store").select("key,value");
+        if (error) {
+          say("불러오지 못했어요: " + error.message);
+          E("lgf").style.display = "none";
+          E("rt").style.display = "";
+          return;
+        }
+        CACHE = Object.fromEntries(data.map((r) => [r.key, r.value]));
+        await loadPoems();
+        await loadForts();
+        E("login").style.display = "none";
+        app();
+      }
+      E("lgb").onclick = async () => {
+        const { error } = await SB.auth.signInWithPassword({
+          email: E("em").value.trim(),
+          password: E("pw").value,
+        });
+        if (error) {
+          const g = error.message || "",
+            h = /Invalid login/i.test(g)
+              ? "이메일/비밀번호가 맞지 않거나 계정이 없어요"
+              : /not confirmed/i.test(g)
+                ? "이메일 확인이 안 된 계정이에요 (Auto Confirm 필요)"
+                : "";
+          return say((h ? h + " · " : "") + "(" + g + ")");
+        }
+        E("lgf").style.display = "none";
+        say("불러오는 중…");
+        boot();
+      };
+      E("pw").onkeydown = (e) => {
+        if (e.key === "Enter") E("lgb").click();
+      };
+      E("rt").onclick = () => {
+        E("rt").style.display = "none";
+        say("불러오는 중…");
+        boot();
+      };
+
+      function app() {
+        const P = {
+          h: "#6b4a3a",
+          s: "#ffe3cf",
+          d: "#5cc8ff",
+          p: "#ff9fbf",
+          k: "#2d4a6e",
+          w: "#fff",
+          y: "#ffd84d",
+          g: "#7ad64a",
+          G: "#4fb02f",
+          r: "#ff8fb1",
+          b: "#7fd4ff",
+          n: "#ffb35c",
+        };
+        const rw = (m) => m.trim().split("\n");
+        function px(m, x = 0, y = 0) {
+          let o = "";
+          rw(m).forEach((r, j) =>
+            [...r].forEach((c, i) => {
+              if (c !== "." && P[c])
+                o += `<rect x="${x + i}" y="${y + j}" width="1" height="1" fill="${P[c]}"/>`;
+            }),
+          );
+          return o;
+        }
+        function sv(m, s = 3, c = "ic") {
+          const R = rw(m),
+            W = Math.max(...R.map((r) => r.length));
+          return `<svg class="${c}" viewBox="0 0 ${W} ${R.length}" width="${W * s}" height="${R.length * s}" shape-rendering="crispEdges">${px(m)}</svg>`;
+        }
+        const M = {
+          home: `....rr....
+...rrrr...
+..rrrrrr..
+.rrrrrrrr.
+rrrrrrrrrr
+.wwwwwwww.
+.wwwbbwww.
+.wwwbbwww.
+.wwwbbwww.
+.wwwwwwww.`,
+          deco: `....yy....
+....yy....
+...yyyy...
+yyyyyyyyyy
+.yyyyyyyy.
+..yyyyyy..
+..yyyyyy..
+.yyy..yyy.
+.yy....yy.
+yy......yy`,
+          poem: `.bbbbbbbb.
+bwwwwwwwwb
+bwrrrrrrwb
+bwwwwwwwwb
+bwrrrrwwwb
+bwwwwwwwwb
+bwrrrrrrwb
+bwwwwwwwwb
+bwwwwwwwwb
+.bbbbbbbb.`,
+          bun: `.ww....ww.
+.wp....pw.
+.wp....pw.
+.wp....pw.
+.wwwwwwww.
+wwwwwwwwww
+wwkwwwwkww
+wwwwppwwww
+wwwwwwwwww
+.wwwwwwww.`,
+          diary: `.w.w.w.w..
+gggggggggg
+gggggggggg
+gggrrggrrg
+ggrrrrrrrg
+gggrrrrrgg
+ggggrrrggg
+gggggrgggg
+gggggggggg
+.gggggggg.`,
+        };
+        document
+          .querySelectorAll("nav [data-i]")
+          .forEach((b) =>
+            b.insertAdjacentHTML("afterbegin", sv(M[b.dataset.i], 3)),
+          );
+        const S = {
+          star: `....y....
+....y....
+...yyy...
+yyyyyyyyy
+.yyyyyyy.
+..yyyyy..
+..yyyyy..
+.yyy.yyy.
+.yy...yy.`,
+          heart: `.rr...rr.
+rwrr.rrrr
+rrrrrrrrr
+rrrrrrrrr
+.rrrrrrr.
+..rrrrr..
+...rrr...
+....r....`,
+          sp: `..w..
+..w..
+wwwww
+..w..
+..w..`,
+        };
+        document
+          .querySelectorAll("[data-s]")
+          .forEach(
+            (e) =>
+              (e.innerHTML = sv(
+                S[e.dataset.s],
+                e.dataset.s === "sp" ? 4 : 4,
+                "",
+              )),
+          );
+        /* room */
+        const ch = `...hhhhhh...
+..hhhhhhhh..
+.hhhhhhhhhh.
+.hhsssssshh.
+.hssksskssh.
+.hsppssppsh.
+..hssssssh..
+...dddddd...
+..dddddddd..
+.sdddddddds.
+.sdddddddds.
+..dddddddd..
+..dddddddd..
+...ss..ss...
+...ss..ss...
+..kkk..kkk..`;
+        const bn = `.ww..ww.
+.wp..pw.
+.wp..pw.
+.wwwwww.
+wwkwwkww
+wwwppwww
+.wwwwww.
+wwwwwwww
+wwwwwwww
+.ww..ww.`;
+        const pl = `..g..g..
+.gGg.gG.
+.ggGgGg.
+..gGgg..
+...gg...
+.nnnnnn.
+.nnnnnn.
+..nnnn..`;
+        function base(W, F, C) {
+          let r = `<rect width="84" height="63" fill="${W[0]}"/><rect y="30" width="84" height="2" fill="${W[1]}"/>`;
+          for (let y = 32; y < 63; y += 5)
+            for (let x = 0; x < 84; x += 6)
+              r += `<rect x="${x}" y="${y}" width="6" height="5" fill="${(x / 6 + (y - 32) / 5) % 2 ? F[0] : F[1]}"/>`;
+          r += `<rect x="8" y="6" width="20" height="17" fill="#fff"/><rect x="10" y="8" width="16" height="13" fill="#7fd4ff"/><rect x="17" y="8" width="2" height="13" fill="#fff"/><rect x="10" y="14" width="16" height="2" fill="#fff"/>`;
+          r += `<g transform="translate(11,9)">${px(`..w.....\n.www....\nwwwww...`)}</g>`;
+          r +=
+            `<rect x="58" y="6" width="15" height="16" fill="#fff"/><rect x="59" y="7" width="13" height="14" fill="#ffe4ee"/>` +
+            px(S.heart, 61, 10);
+          r += `<rect x="56" y="27" width="24" height="2" fill="#e8b98a"/><rect x="58" y="22" width="3" height="5" fill="#ff8fb1"/><rect x="61" y="23" width="3" height="4" fill="#7fd4ff"/><rect x="64" y="21" width="3" height="6" fill="#ffd84d"/>`;
+          r += `<rect x="26" y="45" width="34" height="15" fill="#ffd0e0"/><rect x="24" y="47" width="38" height="11" fill="#ffd0e0"/><rect x="28" y="47" width="30" height="11" fill="#ffe8f0"/>`;
+          r +=
+            px(pl, 4, 40) +
+            pxc(ch, 36, 33, C) +
+            px(bn, 52, 44) +
+            px(`..w..\n..w..\nwwwww\n..w..\n..w..`, 70, 38) +
+            px(`.w.\nwww\n.w.`, 12, 50);
+          return r;
+        }
+
+        let f = `<rect width="84" height="63" fill="#d3f0ff"/><rect y="30" width="84" height="33" fill="#bff06b"/><rect y="40" width="84" height="23" fill="#a6e64a"/>`;
+        f +=
+          px(`...ww...\n..wwww..\n.wwwwww.\nwwwwwwww`, 8, 10) +
+          px(`p..p\nw..w`, 10, 8) +
+          px(`..w.....\n.www....\nwwwww...`, 52, 6);
+        const bs = `..GGGG..\n.GGGGGG.\nGGGGGGGG`;
+        f +=
+          px(`.ww..ww.\n.wp..pw.\n.wp..pw.`, 12, 30) +
+          px(bs, 12, 33) +
+          px(bs, 60, 44) +
+          px(bs, 28, 36) +
+          px(`w.w\nwww\nwkw`, 46, 52);
+        [
+          [20, 50],
+          [30, 57],
+          [70, 52],
+          [5, 57],
+          [76, 58],
+          [55, 49],
+        ].forEach(
+          ([x, y], i) =>
+            (f += `<rect x="${x}" y="${y}" width="2" height="2" fill="${i % 2 ? "#ffd84d" : "#ff8fb1"}"/>`),
+        );
+        const $ = (id) => E(id) || document.createElement("div");
+        const ld = (k, d) => (CACHE[k] === undefined ? d : CACHE[k]),
+          svd = save;
+        const esc = (s) =>
+          s.replace(
+            /[&<>"]/g,
+            (c) =>
+              ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+        const pad = (n, l) => String(n).padStart(l, "0"),
+          WD = "일월화수목금토";
+        const today = ((d) =>
+          d.getFullYear() +
+          "." +
+          pad(d.getMonth() + 1, 2) +
+          "." +
+          pad(d.getDate(), 2))(new Date());
+        let tm;
+        window.tst = (t) => toast(t);
+        const toast = (t) => {
+          const e = $("toast");
+          e.textContent = t;
+          e.classList.add("on");
+          clearTimeout(tm);
+          tm = setTimeout(() => e.classList.remove("on"), 1700);
+        };
+        /* 카운터·출석 */
+        const fmt = (d) =>
+            d.getFullYear() +
+            "." +
+            pad(d.getMonth() + 1, 2) +
+            "." +
+            pad(d.getDate(), 2),
+          pdt = (x) => new Date(x.replace(/\./g, "-") + "T00:00:00");
+        const started = ld("start", null);
+        $("intro").style.display = started ? "none" : "flex";
+        $("go").onclick = async () => {
+          svd("start", today);
+          await flush();
+          location.reload();
+        };
+        const dayN = started
+          ? Math.round((pdt(today) - pdt(started)) / 864e5) + 1
+          : 1;
+        let at = ld("at", []);
+        const PREVIEW = false; // true: 의상 전부 오픈 (미리보기)
+        const ADMIN = true; // true: 시 탭에 '전체 보기' 표시 (친구에게 줄 때 false)
+        let N = PREVIEW ? 999 : at.length;
+        /* 네비 */
+        const pgs = [...document.querySelectorAll(".pg")],
+          bts = [...document.querySelectorAll("nav button")];
+        bts.forEach(
+          (b) =>
+            (b.onclick = () => {
+              bts.forEach((x) => x.classList.toggle("on", x === b));
+              pgs.forEach((p) =>
+                p.classList.toggle("on", p.id === b.dataset.i),
+              );
+              scrollTo(0, 0);
+              if (b.dataset.i === "bun") setBun("hub");
+            }),
+        );
+        /* 스티커 (다이어리 도구) */
+        document.querySelectorAll(".sk").forEach((e) => {
+          e.innerHTML = sv(S[e.dataset.s], 3, "");
+          e.onclick = () => {
+            const t = $("dx"),
+              c = { star: "★", heart: "♡", sp: "✦" }[e.dataset.s],
+              a = t.selectionStart ?? t.value.length;
+            t.setRangeText(c, a, t.selectionEnd ?? a, "end");
+            t.focus();
+          };
+        });
+        /* 홈 */
+        const MS = [
+          "오늘도 놀러와줘서 고마워~ ♡",
+          "방명록에 한 줄 남겨줄래?",
+          "토끼가 어딘가 숨어있대!",
+          "오늘의 시는 읽어봤어?",
+          "일기 쓰러 갈까? ✎",
+        ];
+        let mi = 0;
+        document.querySelector("#home .frame").onclick = () => {
+          mi = (mi + 1) % MS.length;
+          $("bub").textContent = MS[mi];
+        };
+        const MO = ["신남", "평온", "피곤", "몽글"],
+          MT = [
+            "♪ 신나는 하루~",
+            "☁ 평온한 하루~",
+            "z 조금 피곤한 하루",
+            "♡ 몽글몽글한 하루",
+          ];
+        let dr = ld("dr", {});
+        const mood = () => {
+          const e = dr[today];
+          $("tdy").textContent = e ? MT[e.m] : "♪ 기분 좋은 하루~";
+          $("dwx").textContent = e
+            ? ["☀ 맑음", "☁ 흐림", "☔ 비", "❄ 눈"][e.w]
+            : "";
+          $("dnum").textContent = pad(dayN, 2);
+          $("hdt").textContent = today + " " + WD[new Date().getDay()] + "요일";
+        };
+        let icx = ld("ic", { n: 12, p: 1 });
+        const icr = () => {
+          $("ic1").textContent = "♡ " + icx.n + "명";
+          $("ic2").style.display = $("icn").style.display = icx.p ? "" : "none";
+        };
+        $("ic").onclick = () => {
+          if (icx.p) {
+            icx.n += icx.p;
+            icx.p = 0;
+            svd("ic", icx);
+            toast("새 일촌 ♡ 수락했어!");
+          } else toast("새 소식이 아직 없어~");
+          icr();
+        };
+        /* 꾸미기 */
+        const FL = `.r.\nrwr\n.r.\n.g.\n.g.`,
+          CL = `.bb.\nbbbb`,
+          MU = `.rrr.\nrwrwr\n.www.\n..w..`,
+          LP = `..y..\n.yyy.\nyyyyy\n..k..\n..k..\n.kkk.`,
+          BX = `nnnnn\nnwwwn\nnnnnn`;
+        const wl = (a, b, d) => ({ c: "w", col: [a, b], d }),
+          fl = (a, b, d) => ({ c: "f", col: [a, b], d });
+        const I = [
+          { c: "s", m: S.star, d: 0 },
+          { c: "s", m: S.heart, d: 0 },
+          { c: "s", m: S.sp, d: 0 },
+          { c: "s", m: FL, d: 2 },
+          { c: "s", m: CL, d: 4 },
+          { c: "s", m: MU, d: 6 },
+          { c: "m", m: pl, d: 0 },
+          { c: "m", m: bn, d: 0 },
+          { c: "m", m: LP, d: 3 },
+          { c: "m", m: BX, d: 7 },
+          wl("#d3f0ff", "#a9dcf7", 0),
+          wl("#ffe4ee", "#ffc9dc", 0),
+          wl("#dcf7e6", "#b5ebc9", 3),
+          wl("#ebe3ff", "#d3c5fa", 5),
+          fl("#bff06b", "#cdf784", 0),
+          fl("#f3d2a2", "#e8bf85", 2),
+          fl("#ffd0e0", "#ffe0ec", 4),
+          fl("#bfe6ff", "#d6f0ff", 6),
+        ];
+        const dim = (m) => {
+            const R = rw(m);
+            return [Math.max(...R.map((r) => r.length)), R.length];
+          },
+          cl = (o) => JSON.parse(JSON.stringify(o));
+        const sw = (o) =>
+          o.m
+            ? sv(o.m, 3, "")
+            : `<span style="display:block;width:30px;height:30px;border-radius:7px;border:2px solid var(--ink);background:${o.col[0]}"></span>`;
+        let rm = ld("room", { w: 10, f: 14, p: [] });
+        if (!I[rm.w] || !I[rm.f]) rm = { w: 10, f: 14, p: [] };
+        rm.c = rm.c || { h: 0, d: 0, s: 0, e: 0 };
+        rm.bg = rm.bg | 0;
+        let cur = cl(rm),
+          tb = "b",
+          sel = 0,
+          drag = null;
+        const T = ["s", "m", "w", "f", "c"];
+        const HC = [
+            "#6b4a3a",
+            "#2b2b3a",
+            "#e8b24a",
+            "#ff8fb1",
+            "#8a6bd6",
+            "#f0f0f0",
+          ],
+          SC = [
+            "#5cc8ff",
+            "#ff8fb1",
+            "#a6e64a",
+            "#ffd84d",
+            "#ffffff",
+            "#b48cf0",
+          ],
+          KC = ["#ffe3cf", "#f5cfa8", "#c99672"],
+          EX = [null, "..hsskkssh..", "..hssskssh.."];
+        const HS = [
+          { n: "단발", d: 0 },
+          {
+            n: "똥머리",
+            d: 0,
+            o: [[`....hhhh....\n...hhhhhh...\n....hhhh....`, -3]],
+          },
+          {
+            n: "긴머리",
+            d: 0,
+            o: [[`..hh....hh..\n..hh....hh..\n..h......h..`, 7]],
+          },
+          {
+            n: "양갈래",
+            d: 2,
+            o: [
+              [
+                `h..........h\nhh........hh\nhh........hh\n.h........h.\n.h........h.`,
+                4,
+              ],
+            ],
+          },
+          {
+            n: "포니테일",
+            d: 3,
+            o: [[`...........h\n..........hh\n..........hh\n...........h`, 5]],
+          },
+          {
+            n: "곱슬",
+            d: 5,
+            o: [
+              [
+                `...hhhhhh...\n.hhhhhhhhhh.\nhhhhhhhhhhhh\nhhhhhhhhhhhh\nhhhhhhhhhhhh\nhhh......hhh\nhh........hh\nhh........hh`,
+                -2,
+              ],
+            ],
+          },
+        ];
+        const HOOD = `...dddddd...\n..dddddddd..\n.dddddddddd.\n.dd......dd.\n.d........d.\n.d........d.\n..d......d..`,
+          ABODY = `...dddddd...\n..ddwwwwdd..\n.sddwwwwdds.\n.sddwwwwdds.\n..dddddddd..\n..dddddddd..\n...dd..dd...\n...dd..dd...\n..ddd..ddd..`;
+        const FUR = `....rrrr....\n...rwrrrr...\n...wwwwww...\n..wwwwwwww..\n.wwwwwwwwww.\n.wwwwwwwwww.\n.wwwwwwwwww.\n.ww......ww.\n.w........w.\n.w........w.\n..w......w..`;
+        const OS = [
+          { n: "기본티", d: 0 },
+          {
+            n: "파자마",
+            d: 0,
+            o: [
+              [
+                `...dddddd...\n..dwddddwd..\n.sdddddddds.\n.sddwddwdds.\n..dddddddd..\n..dddddddd..\n...dd..dd...\n...ww..ww...\n..rrr..rrr..`,
+                7,
+              ],
+            ],
+          },
+          {
+            n: "원피스",
+            d: 2,
+            o: [
+              [
+                `...dwwwwd...\n..dddddddd..\n.sdddddddds.\n.sdddddddds.\n.dddddddddd.\ndddddddddddd`,
+                7,
+              ],
+            ],
+          },
+          {
+            n: "토끼옷",
+            d: 3,
+            o: [
+              [`..dd....dd..\n..dp....pd..\n..dp....pd..`, -3],
+              [HOOD, 0],
+              [ABODY, 7],
+              [`..........ww\n..........ww`, 11],
+            ],
+          },
+          {
+            n: "튜브 수영복",
+            d: 4,
+            o: [
+              [
+                `...ssssss...\n..sdddddds..\n.ssssssssss.\n.ssssssssss.\nrrwwrrwwrrww\nwwrrwwrrwwrr`,
+                7,
+              ],
+              [`..kbbkkbbk..`, 4],
+              [`..yyy..yyy..`, 15],
+            ],
+          },
+          {
+            n: "코트",
+            d: 5,
+            o: [
+              [FUR, -4],
+              [
+                `..drrrrrrd..\n.dddddddddd.\n.dddddddddd.\n.dddwddwddd.\n.sdddddddds.\n.dddwddwddd.\n.dddddddddd.`,
+                7,
+              ],
+            ],
+          },
+          {
+            n: "패딩",
+            d: 7,
+            o: [
+              [FUR, -4],
+              [
+                `..dddddddd..\ndddddddddddd\nddwdwddwdwdd\ndddddddddddd\n.sdddddddds.\nddwdwddwdwdd\n.dddddddddd.`,
+                7,
+              ],
+            ],
+          },
+          {
+            n: "드레스",
+            d: 10,
+            o: [
+              [`...y.yy.y...\n...yyyyyy...`, -1],
+              [
+                `..ddwwwwdd..\n.dddddddddd.\n.sdddddddds.\n.sdrrrrrrds.\n..dddddddd..\n.dddddddddd.\ndwdwdwdwdwdw`,
+                7,
+              ],
+            ],
+          },
+        ];
+        function pxc(m, x, y, C) {
+          C = C || {};
+          const R = rw(m),
+            e = C.e | 0;
+          if (EX[e]) R[6] = EX[e];
+          const b = { h: P.h, d: P.d, s: P.s };
+          P.h = HC[C.h | 0];
+          P.d = SC[C.d | 0];
+          P.s = KC[C.s | 0];
+          let r = px(R.join("\n"), x, y);
+          (HS[C.hs | 0].o || [])
+            .concat(OS[C.os | 0].o || [])
+            .forEach(([mm, dy]) => (r += px(mm, x, y + dy)));
+          Object.assign(P, b);
+          return r;
+        }
+        const chSvg = (C) =>
+          `<svg viewBox="-1 -5 14 23" width="30" height="49" shape-rendering="crispEdges">${pxc(ch, 0, 0, C)}</svg>`;
+        const lab = (t) =>
+          `<div style="grid-column:1/-1;font-size:11px;color:var(--sub)">${t}</div>`;
+        const tile = (k, i, cont, on, lk, d) =>
+          `<div class="it${on ? " sel" : lk ? " lock" : ""}" data-c="${k}:${i}" style="flex-direction:column;gap:2px;line-height:1.1">${lk ? "🔒 도장" + d : cont}</div>`;
+        const sty = (k, L) =>
+          L.map((o, i) =>
+            tile(
+              k,
+              i,
+              chSvg({ ...cur.c, [k]: i }) + `<span>${o.n}</span>`,
+              (cur.c[k] | 0) === i,
+              o.d > N,
+              o.d,
+            ),
+          ).join("");
+        const swa = (k, A) =>
+          A.map((v, i) =>
+            tile(
+              k,
+              i,
+              `<span style="display:block;width:26px;height:26px;border-radius:50%;border:2px solid var(--ink);background:${v}"></span>`,
+              cur.c[k] === i,
+              0,
+            ),
+          ).join("");
+        const cgrid = () =>
+          tb === "h"
+            ? lab("머리 스타일") + sty("hs", HS) + lab("머리색") + swa("h", HC)
+            : tb === "o"
+              ? lab("코스튬") + sty("os", OS) + lab("옷 색") + swa("d", SC)
+              : lab("피부색") +
+                swa("s", KC) +
+                lab("표정") +
+                EX.map((_, i) =>
+                  tile(
+                    "e",
+                    i,
+                    ["기본", "웃음", "놀람"][i],
+                    (cur.c.e | 0) === i,
+                    0,
+                  ),
+                ).join("");
+        const CAP = [
+          { k: 0, n: "케이크", m: `..y..\n..k..\nwwwww\nrrrrr\nwwwww` },
+          { k: 1, n: "선인장", m: `..g..\ng.g.g\nggggg\n..g..\n..g..\n.nnn.` },
+          {
+            k: 2,
+            n: "우체통",
+            m: `.rrrrr.\nrrrrrrr\nrkkkkkr\nrrrrrrr\nrrrrrrr\nrrrrrrr\n..nnn..\n..nnn..`,
+          },
+          {
+            k: 3,
+            n: "가로등",
+            m: `.yyy.\nyyyyy\n.yyy.\n..k..\n..k..\n..k..\n.kkk.`,
+          },
+          { k: 4, n: "책 더미", m: `.rrrrr\nbbbbbb\n.yyyyy\ngggggg` },
+          { k: 5, n: "별 조명", m: `..y..\nyyyyy\n.yyy.\n.y.y.` },
+          { k: 6, n: "구름 쿠션", m: `..bb..\n.bbbb.\nbbbbbb\nbbbbbb` },
+          { k: 7, n: "화분", m: `r.p.r\n.g.g.\n..g..\n.nnn.\n.nnn.` },
+          { k: 8, n: "커피잔", m: `.w.w..\nkkkkk.\nkwwwkk\nkwwwk.\n.kkk..` },
+          {
+            k: 9,
+            n: "풍선 다발",
+            m: `.rr...bb.\nrrrr.bbbb\nrrrr.bbbb\n.rr...bb.\n..k...k..\n...k.k...\n....k....`,
+          },
+        ];
+        CAP.forEach((o) => I.push({ c: "x", m: o.m, d: 0, k: o.k, n: o.n }));
+        const own = (o) => o.c !== "x" || ld("cap", []).includes(o.k);
+        [...I, ...HS].forEach((o) => (o.d = 0));
+        [0, 0, 5, 10, 15, 20, 25, 30].forEach((d, i) => (OS[i].d = d));
+        const SUB = {
+          r: [
+            ["b", "배경"],
+            ["s", "스티커"],
+            ["m", "가구"],
+            ["x", "캡슐"],
+            ["w", "벽지"],
+            ["f", "바닥"],
+          ],
+          c: [
+            ["h", "머리"],
+            ["o", "옷"],
+            ["e", "얼굴"],
+          ],
+        };
+        let md = "r";
+        function grid() {
+          const A = [...I, ...HS, ...OS];
+          $("own").textContent =
+            "보유 " +
+            A.filter((o) => o.d <= N && own(o)).length +
+            " / " +
+            A.length;
+          document.querySelectorAll("#mode .tab").forEach((t) => {
+            t.classList.toggle("on", t.dataset.m === md);
+            t.onclick = () => {
+              md = t.dataset.m;
+              tb = SUB[md][0][0];
+              grid();
+            };
+          });
+          $("sub").innerHTML = SUB[md]
+            .map(
+              ([k, l]) =>
+                `<span class="tab${k === tb ? " on" : ""}" data-t="${k}">${l}</span>`,
+            )
+            .join("");
+          $("items").innerHTML =
+            md === "c"
+              ? cgrid()
+              : tb === "b"
+                ? bgrid()
+                : I.map((o, i) =>
+                    o.c !== tb
+                      ? ""
+                      : o.d > N || !own(o)
+                        ? `<div class="it lock" data-i="${i}">${o.c === "x" ? "?" : "D+" + o.d}</div>`
+                        : `<div class="it${(o.c === "w" ? cur.w : o.c === "f" ? cur.f : sel) === i ? " sel" : ""}" data-i="${i}">${sw(o)}</div>`,
+                  ).join("");
+          const nx = Math.min(...A.filter((o) => o.d > N).map((o) => o.d));
+          $("nxt").textContent = PREVIEW
+            ? "미리보기: 전부 열려 있어요 ✨"
+            : isFinite(nx)
+              ? `도장 ${nx - N}개 더 모으면 새 의상! 🎁`
+              : "모든 아이템을 모았어! ♡";
+        }
+        $("sub").onclick = (e) => {
+          const t = e.target.closest("[data-t]");
+          if (t) {
+            tb = t.dataset.t;
+            grid();
+          }
+        };
+
+        const Q = (a) =>
+            typeof a === "string"
+              ? a
+              : `<rect x="${a[0]}" y="${a[1]}" width="${a[2]}" height="${a[3]}" fill="${a[4]}"/>`,
+          pgn = (p, c) => `<polygon points="${p}" fill="${c}"/>`,
+          cir = (x, y, r, c) =>
+            `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`;
+        const BG = ["기본 방", "침대방", "놀이공원", "한강", "성", "바다"];
+        const SCN = [
+          null,
+          [
+            [0, 0, 84, 63, "#ffe9f1"],
+            [0, 39, 84, 2, "#c98a5a"],
+            [0, 41, 84, 22, "#e8c69a"],
+            [0, 47, 84, 1, "#d9b180"],
+            [0, 54, 84, 1, "#d9b180"],
+            [0, 60, 84, 1, "#d9b180"],
+            [62, 8, 18, 17, "#fff"],
+            [64, 10, 14, 13, "#bfe6ff"],
+            [70, 10, 2, 13, "#fff"],
+            [64, 16, 14, 2, "#fff"],
+            [66, 12, 3, 3, "#fff3a6"],
+            [8, 6, 2, 2, "#ffd84d"],
+            [20, 9, 2, 2, "#ff9fc0"],
+            [34, 5, 2, 2, "#ffd84d"],
+            [48, 8, 2, 2, "#ff9fc0"],
+            [56, 4, 2, 2, "#ffd84d"],
+            [30, 50, 24, 8, "#ffc6da"],
+            [32, 52, 20, 4, "#ffe3ee"],
+            [3, 31, 3, 20, "#c98a5a"],
+            [24, 40, 3, 11, "#c98a5a"],
+            [5, 44, 20, 5, "#a8683f"],
+            [6, 40, 18, 5, "#fff"],
+            [11, 38, 13, 7, "#ff9fc0"],
+            [11, 38, 13, 2, "#ff7aa8"],
+            [7, 37, 6, 4, "#fff6c9"],
+            [29, 42, 6, 9, "#c98a5a"],
+            [29, 37, 6, 3, "#ffd84d"],
+            [31, 40, 2, 2, "#a8683f"],
+          ],
+          [
+            [0, 0, 84, 63, "#9fe0ff"],
+            [28, 5, 12, 3, "#fff"],
+            [31, 3, 6, 3, "#fff"],
+            [66, 6, 12, 3, "#fff"],
+            [69, 4, 6, 3, "#fff"],
+            [0, 46, 84, 17, "#a6e64a"],
+            [0, 47, 84, 9, "#ffe3a8"],
+            '<circle cx="18" cy="25" r="13" fill="none" stroke="#ff6f9c" stroke-width="1.2"/>',
+            [17, 12, 2, 26, "#ff9fc0"],
+            [5, 24, 26, 2, "#ff9fc0"],
+            [16, 10, 4, 3, "#ffd84d"],
+            [16, 37, 4, 3, "#7fd4ff"],
+            [4, 23, 3, 4, "#a6e64a"],
+            [29, 23, 3, 4, "#ffd84d"],
+            [9, 16, 3, 3, "#ff8fb1"],
+            [25, 16, 3, 3, "#8a6bd6"],
+            [9, 31, 3, 3, "#8a6bd6"],
+            [25, 31, 3, 3, "#ff8fb1"],
+            [13, 38, 2, 10, "#8a6bd6"],
+            [21, 38, 2, 10, "#8a6bd6"],
+            pgn("55,27 71,27 63,18", "#ff8fb1"),
+            [55, 27, 16, 2, "#ffd84d"],
+            [57, 29, 1, 11, "#fff"],
+            [63, 29, 1, 11, "#fff"],
+            [69, 29, 1, 11, "#fff"],
+            [54, 40, 18, 3, "#8a6bd6"],
+            cir(50, 12, 3, "#ff6f9c"),
+            [50, 15, 1, 9, "#fff"],
+            cir(75, 14, 3, "#ffd84d"),
+            [75, 17, 1, 8, "#fff"],
+          ],
+          [
+            [0, 0, 84, 14, "#7c6bd6"],
+            [0, 14, 84, 10, "#ff9fc0"],
+            [0, 24, 84, 12, "#ffd6a5"],
+            cir(42, 34, 6, "#fff3a6"),
+            [4, 27, 5, 9, "#5a4a8a"],
+            [10, 23, 4, 13, "#5a4a8a"],
+            [16, 29, 6, 7, "#5a4a8a"],
+            [60, 25, 5, 11, "#5a4a8a"],
+            [67, 21, 4, 15, "#5a4a8a"],
+            [75, 16, 1, 20, "#5a4a8a"],
+            [73, 24, 5, 2, "#5a4a8a"],
+            [0, 36, 84, 8, "#6fb4e8"],
+            [38, 37, 8, 1, "#fff3a6"],
+            [40, 40, 4, 1, "#fff3a6"],
+            [6, 39, 8, 1, "#a8d4f5"],
+            [62, 41, 10, 1, "#a8d4f5"],
+            [0, 37, 84, 2, "#c9c3ee"],
+            [12, 39, 2, 5, "#a79fe0"],
+            [30, 39, 2, 5, "#a79fe0"],
+            [54, 39, 2, 5, "#a79fe0"],
+            [72, 39, 2, 5, "#a79fe0"],
+            [0, 44, 84, 19, "#7fcf5a"],
+            [0, 46, 84, 7, "#f3e9d6"],
+            [6, 44, 10, 2, "#a8683f"],
+            [7, 46, 1, 2, "#a8683f"],
+            [14, 46, 1, 2, "#a8683f"],
+            [78, 38, 1, 11, "#444"],
+            [77, 37, 3, 2, "#ffd84d"],
+          ],
+          [
+            [0, 0, 84, 63, "#bfe6ff"],
+            [6, 6, 12, 3, "#fff"],
+            [9, 4, 6, 3, "#fff"],
+            [62, 8, 12, 3, "#fff"],
+            [65, 6, 6, 3, "#fff"],
+            [0, 46, 84, 17, "#9be36a"],
+            [30, 16, 24, 30, "#e8e0f5"],
+            [30, 14, 3, 2, "#e8e0f5"],
+            [35, 14, 3, 2, "#e8e0f5"],
+            [40, 14, 3, 2, "#e8e0f5"],
+            [45, 14, 3, 2, "#e8e0f5"],
+            [51, 14, 3, 2, "#e8e0f5"],
+            [23, 12, 9, 34, "#d6cdee"],
+            [52, 12, 9, 34, "#d6cdee"],
+            pgn("22,12 33,12 27.5,3", "#ff8fb1"),
+            pgn("51,12 62,12 56.5,3", "#ff8fb1"),
+            pgn("38,16 46,16 42,7", "#8a6bd6"),
+            [42, 3, 1, 5, "#fff"],
+            [43, 3, 3, 2, "#ff6f9c"],
+            [26, 16, 3, 3, "#ffd84d"],
+            [55, 16, 3, 3, "#ffd84d"],
+            [26, 24, 3, 3, "#ffd84d"],
+            [55, 24, 3, 3, "#ffd84d"],
+            [33, 20, 3, 4, "#8a6bd6"],
+            [48, 20, 3, 4, "#8a6bd6"],
+            [37, 30, 10, 16, "#8a6bd6"],
+            [38, 31, 8, 15, "#6b4aa8"],
+            [34, 46, 16, 17, "#f3e1b5"],
+            [6, 32, 8, 10, "#5fc04a"],
+            [9, 42, 2, 6, "#a8683f"],
+            [70, 32, 8, 10, "#5fc04a"],
+            [73, 42, 2, 6, "#a8683f"],
+          ],
+          [
+            [0, 0, 84, 63, "#bfe6ff"],
+            [64, 6, 9, 9, "#ffe27a"],
+            [8, 8, 12, 3, "#fff"],
+            [11, 6, 6, 3, "#fff"],
+            [40, 12, 12, 3, "#fff"],
+            [43, 10, 6, 3, "#fff"],
+            [0, 26, 84, 18, "#4fb3f0"],
+            [6, 31, 6, 1, "#a8e0ff"],
+            [28, 35, 8, 1, "#a8e0ff"],
+            [50, 30, 6, 1, "#a8e0ff"],
+            [64, 38, 8, 1, "#a8e0ff"],
+            [18, 40, 6, 1, "#a8e0ff"],
+            [27, 18, 1, 9, "#fff"],
+            pgn("28,18 28,26 34,26", "#fff"),
+            [25, 26, 10, 2, "#ff8fb1"],
+            [0, 42, 84, 3, "#a8e0ff"],
+            [0, 44, 84, 19, "#ffe3a8"],
+            [0, 44, 84, 1, "#fff"],
+            [4, 28, 2, 20, "#a8683f"],
+            pgn("5,28 13,30 5,31", "#4fb04a"),
+            pgn("5,28 -3,30 5,31", "#4fb04a"),
+            pgn("5,27 9,23 6,30", "#4fb04a"),
+            [66, 38, 1, 14, "#fff"],
+            pgn("58,38 76,38 67,30", "#ff6f9c"),
+            [60, 53, 12, 5, "#7fd4ff"],
+            [60, 55, 12, 1, "#fff"],
+            [14, 49, 8, 5, "#f3cd85"],
+            [16, 46, 4, 3, "#f3cd85"],
+            [17, 44, 1, 2, "#ff6f9c"],
+          ],
+        ];
+        const scene = (k) => SCN[k].map(Q).join("");
+        const bgrid = () =>
+          BG.map(
+            (n, i) =>
+              `<div class="it${(cur.bg | 0) === i ? " sel" : ""}" data-g="${i}" style="flex-direction:column;gap:2px;line-height:1.1"><svg viewBox="0 0 84 63" width="62" height="46" shape-rendering="crispEdges" style="border-radius:5px">${i ? scene(i) : base(I[cur.w].col, I[cur.f].col)}</svg><span>${n}</span></div>`,
+          ).join("");
+        const draw = (st) =>
+          (st.bg
+            ? scene(st.bg) + pxc(ch, 36, 33, st.c)
+            : base(I[st.w].col, I[st.f].col, st.c)) +
+          st.p
+            .map(
+              (o, k) =>
+                `<g data-k="${k}" transform="translate(${o.x},${o.y})">${px(I[o.i].m)}</g>`,
+            )
+            .join("");
+        const p1 = () => ($("room").innerHTML = draw(rm)),
+          p2 = () => ($("room2").innerHTML = draw(cur));
+        $("items").onclick = (e) => {
+          const g = e.target.closest("[data-g]");
+          if (g) {
+            cur.bg = +g.dataset.g;
+            grid();
+            p2();
+            return;
+          }
+          const c = e.target.closest("[data-c]");
+          if (c) {
+            const [k, v] = c.dataset.c.split(":"),
+              o = k === "hs" ? HS[v] : k === "os" ? OS[v] : 0;
+            if (o && o.d > N)
+              return toast(`도장 ${o.d}개를 모으면 열려요 (지금 ${N}개)`);
+            cur.c[k] = +v;
+            grid();
+            p2();
+            return;
+          }
+          const t = e.target.closest("[data-i]");
+          if (!t) return;
+          const i = +t.dataset.i,
+            o = I[i];
+          if (!own(o)) return toast("놀이터의 캡슐뽑기에서 얻을 수 있어요 🎰");
+          if (o.d > N)
+            return toast(`도장 ${o.d}개를 모으면 열려요 (지금 ${N}개)`);
+          if (o.c === "w") {
+            cur.w = i;
+            cur.bg = 0;
+          } else if (o.c === "f") {
+            cur.f = i;
+            cur.bg = 0;
+          } else sel = i;
+          grid();
+          p2();
+        };
+        const R2 = $("room2");
+        R2.style.touchAction = "none";
+        const pt = (e) => {
+            const b = R2.getBoundingClientRect();
+            return [
+              ((e.clientX - b.left) / b.width) * 84,
+              ((e.clientY - b.top) / b.height) * 63,
+            ];
+          },
+          cp = (v, w, m) => Math.max(0, Math.min(m - w, Math.round(v)));
+        R2.onpointerdown = (e) => {
+          const [x, y] = pt(e),
+            g = e.target.closest("[data-k]");
+          if (g) {
+            const o = cur.p[+g.dataset.k];
+            drag = { o, dx: x - o.x, dy: y - o.y };
+            R2.setPointerCapture(e.pointerId);
+          } else {
+            if (md === "c") return;
+            if (cur.p.length >= 30) return toast("너무 많아! 몇 개만 지워줘");
+            const [w, h] = dim(I[sel].m);
+            cur.p.push({
+              i: sel,
+              x: cp(x - w / 2, w, 84),
+              y: cp(y - h / 2, h, 63),
+            });
+            p2();
+          }
+        };
+        R2.onpointermove = (e) => {
+          if (!drag) return;
+          const [x, y] = pt(e),
+            [w, h] = dim(I[drag.o.i].m);
+          drag.o.x = cp(x - drag.dx, w, 84);
+          drag.o.y = cp(y - drag.dy, h, 63);
+          p2();
+        };
+        R2.onpointerup = R2.onpointercancel = () => (drag = null);
+        R2.ondblclick = (e) => {
+          const g = e.target.closest("[data-k]");
+          if (g) {
+            cur.p.splice(+g.dataset.k, 1);
+            p2();
+          }
+        };
+        $("undo").onclick = () => {
+          if (cur.p.pop()) p2();
+          else toast("되돌릴 게 없어~");
+        };
+        $("save").onclick = () => {
+          rm = cl(cur);
+          svd("room", rm);
+          p1();
+          toast("방을 저장했어! ♡");
+        };
+        /* 오늘의 시 */
+        let PO =
+          window.POEMS && window.POEMS.length
+            ? window.POEMS
+            : parsePoems(window.POEMS_TEXT || "");
+        if (!PO.length)
+          PO = [
+            [
+              "우체통이 있는 골목",
+              "오늘은 조금 멀리 왔어\n편지 대신 안부를 접어\n가방 앞주머니에 넣었지\n돌아올 때쯤이면\n내 그림자도 웃고 있을 거야",
+            ],
+            [
+              "창가의 오후",
+              "커튼이 숨을 쉬는 시간\n식은 차 위로 햇살이 앉는다\n아무 일도 하지 않은 하루가\n제일 오래 기억날 것 같다",
+            ],
+            [
+              "작은 방",
+              "작은 방에 별을 붙였다\n불을 끄면 조금 더 멀어지는 별\n그래도 눈을 감으면\n천장이 다 밤하늘이 된다",
+            ],
+            [
+              "비 오는 날의 리듬",
+              "툭, 툭, 우산 위에 떨어지는\n오늘의 안부들\n젖은 신발도 노래가 되는\n조용한 골목의 박자",
+            ],
+            [
+              "토끼에게",
+              "풀숲 어딘가에 숨어 있니\n귀만 살짝 내밀어 줘\n찾아내면 웃을게\n못 찾아도 웃을게",
+            ],
+            [
+              "저녁 산책",
+              "노을이 주머니에 들어왔다\n걷는 만큼 따뜻해지는 길\n집에 도착할 때쯤엔\n하루가 조금 둥글어져 있다",
+            ],
+            [
+              "오래된 노트",
+              "첫 장에 적어둔 다짐은\n삐뚤빼뚤 웃고 있다\n지키지 못한 것도 괜찮아\n다시 쓰면 새 페이지니까",
+            ],
+          ];
+        let pi = 0;
+        let vd = dayN;
+        const maxD = ADMIN ? Math.max(dayN, PO.length) : dayN;
+        const shp = () => {
+          pi = (vd - 1) % PO.length;
+          $("pnl").textContent =
+            "DAY " + pad(vd, 2) + (vd === dayN ? " · 오늘" : "");
+          $("pp1").disabled = vd <= 1;
+          $("pp2").disabled = vd >= maxD;
+          $("pt").textContent = PO[pi][0];
+          $("pp").textContent = PO[pi][1];
+          $("pa").textContent = PO[pi][2]
+            ? "시 · " + PO[pi][2]
+            : "샘플 시 · poems.json을 못 불러왔어요";
+        };
+        let cms = ld("cm", {});
+        if (!ld("cmfix", 0)) {
+          Object.keys(cms).forEach(
+            (k) =>
+              (cms[k] = cms[k]
+                .filter((c) => c[0] !== "너")
+                .map((c) => (c[0] === "지연" ? ["망고", c[1]] : c))),
+          );
+          svd("cm", cms);
+          svd("cmfix", 1);
+        }
+        if (!ld("cmfix2", 0)) {
+          Object.keys(cms).forEach(
+            (k) =>
+              (cms[k] = cms[k]
+                .filter((c) => c[0] !== "망고" && c[0] !== "지연")
+                .map((c) => (c[0] === "너" ? ["수빈", c[1]] : c))),
+          );
+          svd("cm", cms);
+          svd("cmfix2", 1);
+        }
+        const cls = () => cms[PO[pi][0]] || (cms[PO[pi][0]] = []);
+        let ec = -1;
+        const cr = () => {
+          ec = -1;
+          $("cb").textContent = "등록";
+          $("cm").innerHTML = cls()
+            .map(
+              ([w, t], i) =>
+                `<div class="say"><span class="tag${w === "수빈" ? " b" : ""}">${w}</span><span style="flex:1">${esc(t)}</span>${w === "수빈" ? `<button class="ib" data-e="${i}">✎</button><button class="ib" data-d="${i}">🗑</button>` : ""}</div>`,
+            )
+            .join("");
+        };
+        const post = () => {
+          const v = $("ci").value.trim();
+          if (!v) return toast("한줄평을 적어줘");
+          const L = cls();
+          if (ec >= 0 && L[ec]) L[ec][1] = v;
+          else L.push(["수빈", v]);
+          svd("cm", cms);
+          $("ci").value = "";
+          cr();
+        };
+        $("cb").onclick = post;
+        $("ci").onkeydown = (e) => {
+          if (e.key === "Enter" && !e.isComposing) post();
+        };
+        /* 토끼 게임 */
+        const LV = [
+            ["🌱 쉬움", 5, 0],
+            ["🌿 보통", 8, 4],
+            ["🌳 어려움", 12, 8],
+          ],
+          TB = `w.w\nwww\nwkw`,
+          BSH = `GGGGG\nGGGGG`;
+        let gm = ld("gm", { d: "", f: [], s: 0, done: 0, lv: 0, seed: 0 }),
+          hn = ld("hn", 2),
+          hi = -1,
+          spots = [],
+          decoys = [];
+        if (gm.d !== today || !gm.seed)
+          gm = {
+            d: today,
+            f: [],
+            s: 0,
+            done: 0,
+            lv: gm.lv | 0,
+            seed: +today.replace(/\./g, ""),
+          };
+        function mk(sd, n) {
+          const r = () =>
+              (sd = (sd * 1664525 + 1013904223) % 4294967296) / 4294967296,
+            a = [];
+          for (let t = 0; a.length < n && t < 900; t++) {
+            const x = 2 + Math.floor(r() * 76),
+              y = 32 + Math.floor(r() * 25);
+            if (
+              a.every((q) => Math.abs(q[0] - x) > 6 || Math.abs(q[1] - y) > 5)
+            )
+              a.push([x, y]);
+          }
+          return a;
+        }
+        function setup() {
+          const [, n, dc] = LV[gm.lv],
+            a = mk(gm.seed, n + dc);
+          spots = a.slice(0, n);
+          decoys = a.slice(n);
+          hi = -1;
+        }
+        function fld() {
+          let h = f;
+          decoys.forEach((q) => (h += px(BSH, q[0] - 1, q[1] + 2)));
+          spots.forEach(([x, y], i) => {
+            const ok = gm.f.includes(i),
+              c = `cx="${x + 1.5}" cy="${y + 1.5}"`;
+            h += `<g data-b="${i}">${ok || !gm.lv ? px(TB, x, y) : px(gm.lv === 1 ? `w.w\nwww` : `w.w\nw.w`, x, y) + px(BSH, x - 1, y + 2)}${ok ? `<circle ${c} r="4" fill="none" stroke="#ff6f9c" stroke-width="1"/>` : ""}${hi === i ? `<circle ${c} r="6" fill="none" stroke="#ffd84d" stroke-width="1.2"><animate attributeName="r" values="4;8;4" dur="1s" repeatCount="indefinite"/></circle>` : ""}<rect x="${x - 2}" y="${y - 2}" width="7" height="8" fill="transparent"/></g>`;
+          });
+          $("field").innerHTML = h;
+          $("fc").textContent = gm.f.length + " / " + spots.length;
+          $("hint").textContent = "힌트 ♡ ×" + hn;
+          $("found").innerHTML = spots
+            .map((_, i) =>
+              i < gm.f.length
+                ? `<div>${sv(bn, 3, "")}</div>`
+                : '<div class="e">?</div>',
+            )
+            .join("");
+          document
+            .querySelectorAll("#lvr .tab")
+            .forEach((t, j) => t.classList.toggle("on", j === gm.lv));
+          $("nb").style.display = gm.s || gm.done ? "none" : "";
+        }
+        const fresh = (lv, msg) => {
+          gm = { ...gm, lv, f: [], done: 0, seed: (Math.random() * 1e9) | 0 };
+          svd("gm", gm);
+          setup();
+          fld();
+          toast(msg);
+        };
+        document.querySelectorAll("#lvr .tab").forEach(
+          (t, j) =>
+            (t.onclick = () => {
+              if (j !== gm.lv) fresh(j, LV[j][0] + " 새 판이 시작돼요!");
+            }),
+        );
+        $("ng").onclick = () => fresh(gm.lv, "새 판 시작! 토끼를 찾아봐 ♡");
+        $("field").onclick = (e) => {
+          const g = e.target.closest("[data-b]");
+          if (!g) return toast("여긴 없어~ 다른 데 찾아봐!");
+          const i = +g.dataset.b;
+          if (gm.f.includes(i)) return toast("이미 찾은 토끼야 ♡");
+          gm.f.push(i);
+          if (hi === i) hi = -1;
+          if (gm.f.length === spots.length && !gm.done) {
+            gm.done = 1;
+            hn += gm.lv + 1;
+            svd("hn", hn);
+            addCoin(gm.lv + 1);
+            toast(`전부 찾았다! 힌트 ♡ +${gm.lv + 1} · 🪙 +${gm.lv + 1}`);
+            setTimeout(reward, 700);
+          } else toast("토끼 발견! (" + gm.f.length + "/" + spots.length + ")");
+          svd("gm", gm);
+          fld();
+        };
+        $("hint").onclick = () => {
+          const left = spots.map((_, i) => i).filter((i) => !gm.f.includes(i));
+          if (!left.length) return toast("이미 다 찾았어!");
+          if (hi >= 0) return toast("반짝이는 곳을 봐!");
+          if (!hn) return toast("힌트가 없어~ 다 찾으면 받을 수 있어!");
+          hn--;
+          svd("hn", hn);
+          hi = left[0];
+          fld();
+        };
+        /* 다이어리 */
+        let cd = today,
+          wm = [0, 0];
+        const sync = () =>
+          [
+            ["wr", 0],
+            ["mr", 1],
+          ].forEach(([id, k]) =>
+            [...$(id).querySelectorAll(".tab")].forEach((t, j) =>
+              t.classList.toggle("on", j === wm[k]),
+            ),
+          );
+        [
+          ["wr", 0],
+          ["mr", 1],
+        ].forEach(
+          ([id, k]) =>
+            ($(id).onclick = (e) => {
+              const t = e.target.closest(".tab");
+              if (!t) return;
+              wm[k] = [...$(id).querySelectorAll(".tab")].indexOf(t);
+              sync();
+            }),
+        );
+        function dl() {
+          $("dl").innerHTML =
+            (cd !== today
+              ? '<div class="ent" data-d="' +
+                today +
+                '"><b>＋</b><span>오늘 일기 쓰기</span></div>'
+              : "") +
+            Object.keys(dr)
+              .sort()
+              .reverse()
+              .slice(0, 8)
+              .map(
+                (k) =>
+                  `<div class="ent" data-d="${k}"><b>${k.slice(5)}</b><span>${esc(dr[k].t || dr[k].x.slice(0, 22) || "(제목 없음)")}</span></div>`,
+              )
+              .join("");
+        }
+        function dv() {
+          const e = dr[cd] || { t: "", x: "", w: 0, m: 0 };
+          wm = [e.w, e.m];
+          $("dd").textContent =
+            cd +
+            " " +
+            WD[new Date(cd.replace(/\./g, "-") + "T00:00:00").getDay()] +
+            "요일";
+          $("dt").value = e.t;
+          $("dx").value = e.x;
+          sync();
+          dl();
+        }
+        $("dl").onclick = (e) => {
+          const t = e.target.closest(".ent");
+          if (t) {
+            cd = t.dataset.d;
+            dv();
+            scrollTo(0, 0);
+          }
+        };
+        $("ds").onclick = () => {
+          const t = $("dt").value.trim(),
+            x = $("dx").value.trim();
+          if (!t && !x) return toast("내용을 적어줘 ✎");
+          dr[cd] = { t, x, w: wm[0], m: wm[1] };
+          svd("dr", dr);
+          dl();
+          mood();
+          toast("일기를 저장했어 ✎");
+        };
+        const WE = ["☀ 맑음", "☁ 흐림", "☔ 비", "❄ 눈"],
+          dws = [...document.querySelectorAll("#diary > section")];
+        const setDm = (m) => {
+          dws.forEach((x) => (x.style.display = m ? "none" : ""));
+          $("dls").style.display = m ? "flex" : "none";
+          document
+            .querySelectorAll("#dmode .tab")
+            .forEach((t, j) => t.classList.toggle("on", j === m));
+          if (m) dls();
+        };
+        function dls() {
+          const ks = Object.keys(dr).sort().reverse();
+          $("dls").innerHTML = ks.length
+            ? ks
+                .map((k) => {
+                  const e = dr[k];
+                  return `<section class="box paper" style="padding:12px"><div class="row"><span class="tag">${k}</span><small>${WD[pdt(k).getDay()]}요일</small><span class="wx" style="margin-left:auto">${WE[e.w | 0]} · ${MO[e.m | 0]}</span></div><h2 style="margin:8px 0 4px;font-size:16px;font-weight:400">${esc(e.t || "(제목 없음)")}</h2><div style="white-space:pre-wrap;line-height:1.55;font-size:13.5px">${esc(e.x || "")}</div><div class="row" style="margin-top:8px;justify-content:flex-end"><button class="btn sm" data-e="${k}">수정</button><button class="btn sm" data-x="${k}" style="background:var(--sky-l);color:var(--ink)">삭제</button></div></section>`;
+                })
+                .join("")
+            : '<section class="box st"><div class="row">아직 쓴 일기가 없어요 ✎</div></section>';
+        }
+        document
+          .querySelectorAll("#dmode .tab")
+          .forEach((t, j) => (t.onclick = () => setDm(j)));
+        $("dls").onclick = (e) => {
+          const b = e.target.closest("button");
+          if (!b) return;
+          if (b.dataset.e) {
+            cd = b.dataset.e;
+            setDm(0);
+            dv();
+            scrollTo(0, 0);
+          } else if (b.dataset.c) {
+            delete dr[b.dataset.x];
+            svd("dr", dr);
+            dls();
+            mood();
+            dl();
+          } else {
+            b.dataset.c = 1;
+            b.textContent = "정말 삭제?";
+            setTimeout(() => {
+              b.dataset.c = "";
+              b.textContent = "삭제";
+            }, 2500);
+          }
+        };
+        const pws = [...document.querySelectorAll("#poem > section")];
+        $("pmode").style.display = ADMIN ? "" : "none";
+        const setPm = (m) => {
+          pws.forEach((x) => (x.style.display = m ? "none" : ""));
+          $("pls").style.display = m ? "flex" : "none";
+          document
+            .querySelectorAll("#pmode .tab")
+            .forEach((t, j) => t.classList.toggle("on", j === m));
+          if (m) plist();
+          scrollTo(0, 0);
+        };
+        function plist() {
+          $("pls").innerHTML =
+            `<section class="box st"><div class="row"><span class="tag b">전체 ${PO.length}편</span><small>오늘은 DAY ${pad(dayN, 2)}</small></div></section>` +
+            PO.map(
+              (p, i) =>
+                `<section class="box paper" style="padding:12px"><div class="row"><span class="tag${i === pi ? " b" : ""}">DAY ${pad(i + 1, 2)}</span><small style="margin-left:auto">${p[2] ? esc(p[2]) : "샘플"}</small></div><h2 style="margin:8px 0 4px;font-size:16px;font-weight:400">${esc(p[0])}</h2><div style="white-space:pre-wrap;line-height:1.6;font-size:13.5px">${esc(p[1])}</div></section>`,
+            ).join("");
+        }
+        document
+          .querySelectorAll("#pmode .tab")
+          .forEach((t, j) => (t.onclick = () => setPm(j)));
+        /* 출석 이벤트 */
+        let pop = 0;
+        const rfs = () => {
+          const d = at.includes(today);
+          $("gosub").textContent = d
+            ? `도장 ${at.length}개 · 완료 ✔`
+            : "오늘 도장 찍기";
+          $("goatt").classList.toggle("done", d);
+          $("goatt").classList.toggle("pulse", !d);
+          $("stp").textContent = d ? "✔ 오늘 도장 완료!" : "🐾 오늘 도장 찍기";
+          $("atts").textContent = "도장 " + at.length + "개";
+        };
+        function att() {
+          const n = at.length,
+            R = Math.max(6, Math.ceil((n + 1) / 5));
+          let h = "";
+          for (let r = 0; r < R; r++) {
+            let c = "";
+            for (let k = 0; k < 5; k++) {
+              const i = r * 5 + k,
+                on = i < n;
+              c += `<div class="stc${on ? " on" : ""}${on && pop && i === n - 1 ? " pop" : ""}">${on ? "<b>♡</b><small>" + at[i].slice(5) + "</small>" : i + 1}</div>`;
+            }
+            const j = OS.findIndex((o) => o.d === (r + 1) * 5),
+              got = j >= 0 && N >= OS[j].d;
+            h += `<div class="srow">${c}${j >= 0 ? `<div class="rwd${got ? " got" : ""}">${chSvg({ ...rm.c, os: j })}<small>${got ? OS[j].n : "🔒 " + (r + 1) * 5}</small></div>` : '<div class="rwd" style="visibility:hidden"></div>'}</div>`;
+          }
+          $("board").innerHTML = h;
+          pop = 0;
+          rfs();
+        }
+        const showAtt = () => {
+          bts.forEach((x) => x.classList.toggle("on", x.dataset.i === "home"));
+          pgs.forEach((p) => p.classList.toggle("on", p.id === "att"));
+          scrollTo(0, 0);
+          att();
+        };
+        $("goatt").onclick = showAtt;
+        $("attb").onclick = () =>
+          bts.find((b) => b.dataset.i === "home").click();
+        $("stp").onclick = () => {
+          if (!started) return;
+          if (at.includes(today)) return toast("오늘은 이미 도장을 찍었어 ♡");
+          at.push(today);
+          svd("at", at);
+          addCoin(1);
+          N = PREVIEW ? 999 : at.length;
+          pop = 1;
+          const o = OS.find((o) => o.d && o.d === at.length);
+          toast(
+            o
+              ? `🎉 새 의상 「${o.n}」이 열렸어!`
+              : `도장 쾅! ♡ (${at.length}개) · 🪙 +1`,
+          );
+          att();
+          grid();
+        };
+        $("dev1").onclick = () => {
+          at.push("2000.01." + pad(at.length + 1, 2));
+          svd("at", at);
+          N = PREVIEW ? 999 : at.length;
+          att();
+          grid();
+          toast("도장 +1 (테스트)");
+        };
+        $("pp1").onclick = () => {
+          if (vd > 1) {
+            vd--;
+            shp();
+            cr();
+            scrollTo(0, 0);
+          }
+        };
+        $("pp2").onclick = () => {
+          if (vd < maxD) {
+            vd++;
+            shp();
+            cr();
+            scrollTo(0, 0);
+          }
+        };
+        /* 스티커 보상 */
+        Object.assign(P, { c: "#fff1d6", m: "#bff0d8", L: "#d9c8ff" });
+        const BB = (b, e) =>
+          [
+            "...cc..cc...",
+            "..cpc..cpc..",
+            "..cpc..cpc..",
+            "..cpc..cpc..",
+            ".cccccccccc.",
+            "cccccccccccc",
+            e || "ccckcccckccc",
+            "ccpcckkccpcc",
+            ".cccccccccc.",
+            ".cccccccccc.",
+            "..cc....cc..",
+          ]
+            .join("\n")
+            .replace(/c/g, b);
+        const ST = [
+          { n: "크림 토끼", b: "c" },
+          { n: "당근 토끼", b: "m", a: [["g.g\n.n.\n.n.\n.n.", -1, 7]] },
+          { n: "별 토끼", b: "L", a: [[".y.\nyyy\n.y.", 11, 0]] },
+          { n: "하트 토끼", b: "y", a: [["r.r\nrrr\n.r.", 11, 8]] },
+          { n: "딸기 토끼", b: "c", a: [[".g.\nrrr\nrrr\n.r.", -2, 7]] },
+          { n: "선글라스 토끼", b: "b", a: [["kbbkkkkbbk", 1, 6]] },
+          { n: "머리띠 토끼", b: "L", a: [["rrrrrrrrrr", 1, 4]] },
+          {
+            n: "쿨쿨 토끼",
+            b: "m",
+            e: "cckkcccckkcc",
+            a: [["yyy\n..y\n.y.\ny..\nyyy", 11, -3]],
+          },
+          {
+            n: "풍선 토끼",
+            b: "c",
+            a: [[".rr.\nrrrr\nrrrr\n.rr.\n.k..\n.k..", -3, 0]],
+          },
+          { n: "꽃 토끼", b: "c", a: [[".r.\nrwr\n.r.", -2, 7]] },
+          { n: "왕관 토끼", b: "L", a: [["y.y.y\nyyyyy", 3, 2]] },
+          {
+            n: "우산 토끼",
+            b: "m",
+            a: [[".rrrr.\nrrrrrr\n..k...\n..k...", 3, -4]],
+          },
+          { n: "구름 토끼", b: "b", a: [[".ww.\nwwww", 11, -1]] },
+          {
+            n: "별별 토끼",
+            b: "n",
+            a: [
+              [".y.\nyyy\n.y.", 11, 0],
+              [".y.\nyyy\n.y.", -3, 5],
+            ],
+          },
+          { n: "하얀 하트 토끼", b: "w", a: [["r.r\nrrr\n.r.", -2, 8]] },
+          { n: "보라 딸기 토끼", b: "L", a: [[".g.\nrrr\nrrr\n.r.", 11, 7]] },
+          { n: "주황 선글라스 토끼", b: "n", a: [["kbbkkkkbbk", 1, 6]] },
+          { n: "레몬 머리띠 토끼", b: "y", a: [["bbbbbbbbbb", 1, 4]] },
+          {
+            n: "보라 쿨쿨 토끼",
+            b: "L",
+            e: "cckkcccckkcc",
+            a: [["yyy\n..y\n.y.\ny..\nyyy", 11, -3]],
+          },
+          {
+            n: "민트 풍선 토끼",
+            b: "m",
+            a: [[".yy.\nyyyy\nyyyy\n.yy.\n.k..\n.k..", 11, 0]],
+          },
+        ];
+        const stkSv = (i, w) => {
+          const o = ST[i];
+          return `<svg viewBox="-4 -5 20 18" width="${w}" height="${w * 0.9}" shape-rendering="crispEdges" style="filter:drop-shadow(1.5px 0 0 #6b4a3a) drop-shadow(-1.5px 0 0 #6b4a3a) drop-shadow(0 1.5px 0 #6b4a3a) drop-shadow(0 -1.5px 0 #6b4a3a)">${px(BB(o.b, o.e && o.e.replace(/c/g, o.b)), 0, 0)}${(o.a || []).map(([m, x, y]) => px(m, x, y)).join("")}</svg>`;
+        };
+        function stkBook() {
+          const h = ld("stk", []);
+          $("stn").textContent = h.length + " / " + ST.length;
+          $("stb").innerHTML = ST.map((o, i) =>
+            h.includes(i)
+              ? `<div class="stt" data-s="${i}">${stkSv(i, 72)}<small>${o.n}</small></div>`
+              : '<div class="stt"><b>?</b><small>???</small></div>',
+          ).join("");
+        }
+        function showStk(i, t) {
+          $("pstk").innerHTML = stkSv(i, 150);
+          $("pnm").textContent = ST[i].n;
+          $("pttl").textContent = t;
+          $("pop").style.display = "flex";
+        }
+        function reward() {
+          const h = ld("stk", []),
+            left = ST.map((_, i) => i).filter((i) => !h.includes(i));
+          if (!left.length)
+            showStk(
+              Math.floor(Math.random() * ST.length),
+              "💖 스티커를 전부 모았어요!",
+            );
+          else {
+            const i = left[Math.floor(Math.random() * left.length)];
+            h.push(i);
+            svd("stk", h);
+            showStk(i, "🎉 새 스티커 획득!");
+          }
+          stkBook();
+        }
+        $("pok").onclick = () => ($("pop").style.display = "none");
+        $("stb").onclick = (e) => {
+          const t = e.target.closest("[data-s]");
+          if (t) showStk(+t.dataset.s, "내 스티커");
+        };
+        $("dev2").onclick = reward;
+        /* 놀이터 · 오늘의 운세 (카드 9장) */
+        const FT = window.FORTS || [],
+          FI = ["🍀", "⭐", "🍓", "🌙", "🎀", "🌈", "🍪", "☁️", "🎈"];
+        function fstate() {
+          let f = ld("fort", {});
+          if (f.d !== today || !f.deal) {
+            const n = Math.min(9, FT.length);
+            let used = (f.used || []).filter((i) => i < FT.length),
+              left = FT.map((_, i) => i).filter((i) => !used.includes(i));
+            if (left.length < n) {
+              used = [];
+              left = FT.map((_, i) => i);
+            }
+            for (let i = left.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [left[i], left[j]] = [left[j], left[i]];
+            }
+            f = { d: today, deal: left.slice(0, n), pick: -1, used };
+            svd("fort", f);
+          }
+          return f;
+        }
+        function fcards() {
+          const f = fstate();
+          $("fcs").innerHTML =
+            f.deal
+              .map(
+                (_, k) =>
+                  `<button class="fc${f.pick === k ? " on" : f.pick >= 0 ? " off" : ""}" data-k="${k}">${f.pick === k ? "✨" : FI[k % 9]}</button>`,
+              )
+              .join("") ||
+            "<small>운세 문장이 없어요 (fortunes.json을 확인해줘)</small>";
+          $("fhint").textContent =
+            f.pick >= 0 ? "오늘은 완료 ✔" : "한 장만 고를 수 있어요";
+        }
+        function showF(t) {
+          $("fdt").textContent = today + " " + WD[new Date().getDay()] + "요일";
+          $("ftx").textContent = t;
+          $("fpop").style.display = "flex";
+        }
+        $("fcs").onclick = (e) => {
+          const c = e.target.closest("[data-k]");
+          if (!c) return;
+          const f = fstate(),
+            k = +c.dataset.k;
+          if (f.pick >= 0) {
+            if (f.pick === k) showF(FT[f.deal[k]]);
+            else toast("오늘은 이미 한 장 뽑았어! 내일 또 만나요 ♡");
+            return;
+          }
+          f.pick = k;
+          f.used = [...(f.used || []), f.deal[k]];
+          svd("fort", f);
+          fcards();
+          showF(FT[f.deal[k]]);
+        };
+        $("fok").onclick = () => ($("fpop").style.display = "none");
+        $("dev3").onclick = () => {
+          svd("fort", {});
+          fcards();
+          toast("운세 초기화 · 다시 뽑아보세요");
+        };
+        const bws = [...document.querySelectorAll("#bun > section")];
+        function setBun(v) {
+          bws.forEach((x) => (x.style.display = v === "game" ? "" : "none"));
+          [
+            ["hub", "hub"],
+            ["fview", "fort"],
+            ["mview", "match"],
+            ["cview", "cap"],
+          ].forEach(
+            ([id, n]) => ($(id).style.display = v === n ? "flex" : "none"),
+          );
+          if (v === "fort") fcards();
+          if (v === "match") mstart();
+          if (v === "cap") capUI();
+          coinUI();
+          scrollTo(0, 0);
+        }
+        $("hgame").onclick = () => {
+          gm.s = 1;
+          svd("gm", gm);
+          fld();
+          setBun("game");
+        };
+        $("hfort").onclick = () => setBun("fort");
+        $("bkg").onclick = $("bkf").onclick = () => setBun("hub");
+        /* 코인 · 짝 맞추기 · 캡슐뽑기 · 댓글/일기 수정삭제 */
+        let coins = ld("coin", 0);
+        const CPRICE = 3;
+        const coinUI = () => {
+          $("hcoin").textContent = "🪙 " + coins;
+          $("ccoin").textContent = "🪙 " + coins;
+        };
+        function addCoin(n) {
+          coins += n;
+          svd("coin", coins);
+          coinUI();
+        }
+        let mc = [],
+          mo = [],
+          mm = 0,
+          ml = 0;
+        function mstart() {
+          const h = ld("stk", []);
+          ml = 0;
+          if (h.length < 3) {
+            $("mg").innerHTML = "";
+            $("mi").textContent = "";
+            $("mmsg").textContent =
+              "스티커를 3종 이상 모으면 할 수 있어요 (지금 " +
+              h.length +
+              "종) · 토끼 찾기를 클리어해봐!";
+            return;
+          }
+          const n = Math.min(8, h.length),
+            pick = [...h].sort(() => Math.random() - 0.5).slice(0, n);
+          mc = [...pick, ...pick]
+            .sort(() => Math.random() - 0.5)
+            .map((i) => ({ i, f: 0, d: 0 }));
+          mo = [];
+          mm = 0;
+          $("mmsg").textContent = "같은 그림 두 장을 찾아봐 ♡";
+          mdraw();
+        }
+        function mdraw() {
+          $("mi").textContent = mm + "번";
+          $("mg").innerHTML = mc
+            .map(
+              (c, k) =>
+                `<button class="mcd${c.d ? " d" : c.f ? " f" : ""}" data-k="${k}">${c.f || c.d ? stkSv(c.i, 56) : "🐰"}</button>`,
+            )
+            .join("");
+        }
+        $("mg").onclick = (e) => {
+          const b = e.target.closest("[data-k]");
+          if (!b || ml) return;
+          const c = mc[+b.dataset.k];
+          if (c.f || c.d) return;
+          c.f = 1;
+          mo.push(c);
+          mdraw();
+          if (mo.length === 2) {
+            mm++;
+            ml = 1;
+            const [a, z] = mo;
+            setTimeout(() => {
+              if (a.i === z.i) a.d = z.d = 1;
+              a.f = z.f = 0;
+              mo = [];
+              ml = 0;
+              mdraw();
+              if (mc.every((c) => c.d)) {
+                addCoin(2);
+                $("mmsg").textContent = `🎉 ${mm}번 만에 성공! 🪙 +2`;
+                toast("짝 맞추기 성공! 🪙 +2");
+              }
+            }, 650);
+          }
+        };
+        $("mre").onclick = mstart;
+        function capUI() {
+          const h = ld("cap", []);
+          coinUI();
+          $("cown").textContent = h.length + " / " + CAP.length;
+          $("cgrid").innerHTML = CAP.map((o) =>
+            h.includes(o.k)
+              ? `<div class="stt">${sv(o.m, 5, "")}<small>${o.n}</small></div>`
+              : '<div class="stt"><b>?</b><small>???</small></div>',
+          ).join("");
+        }
+        $("cpull").onclick = () => {
+          const h = ld("cap", []),
+            left = CAP.filter((o) => !h.includes(o.k));
+          if (!left.length) return toast("아이템을 전부 모았어! ♡");
+          if (coins < CPRICE)
+            return toast(`코인이 모자라요 (🪙 ${CPRICE}개 필요)`);
+          addCoin(-CPRICE);
+          const o = left[Math.floor(Math.random() * left.length)];
+          h.push(o.k);
+          svd("cap", h);
+          const m = $("cmach");
+          m.classList.remove("shake");
+          void m.offsetWidth;
+          m.classList.add("shake");
+          setTimeout(() => {
+            $("pstk").innerHTML = sv(o.m, 14, "");
+            $("pnm").textContent = o.n + " · 꾸미기 › 캡슐 탭";
+            $("pttl").textContent = "🎰 새 아이템 획득!";
+            $("pop").style.display = "flex";
+            capUI();
+          }, 650);
+        };
+        $("hmatch").onclick = () => setBun("match");
+        $("hcap").onclick = () => setBun("cap");
+        $("bkm").onclick = $("bkc").onclick = () => setBun("hub");
+        $("dev4").onclick = () => {
+          addCoin(5);
+          toast("🪙 +5");
+        };
+        $("cm").onclick = (e) => {
+          const b = e.target.closest("button");
+          if (!b) return;
+          const L = cls();
+          if (b.dataset.e !== undefined) {
+            ec = +b.dataset.e;
+            $("ci").value = L[ec][1];
+            $("ci").focus();
+            $("cb").textContent = "수정";
+          } else if (b.dataset.c) {
+            L.splice(+b.dataset.d, 1);
+            svd("cm", cms);
+            cr();
+          } else {
+            b.dataset.c = 1;
+            b.textContent = "정말?";
+            setTimeout(() => {
+              b.dataset.c = "";
+              b.textContent = "🗑";
+            }, 2500);
+          }
+        };
+        let dc = 0;
+        $("ddel").onclick = () => {
+          if (!dr[cd]) return toast("저장된 일기가 아니에요");
+          if (!dc) {
+            dc = 1;
+            toast("한 번 더 누르면 삭제돼요");
+            setTimeout(() => (dc = 0), 2500);
+          } else {
+            delete dr[cd];
+            svd("dr", dr);
+            dc = 0;
+            cd = today;
+            dv();
+            mood();
+            toast("일기를 삭제했어");
+          }
+        };
+        let wc = 0;
+        $("devall").onclick = () => {
+          if (!wc) {
+            wc = 1;
+            toast("모든 데이터가 지워져요! 한 번 더 누르면 실행");
+            setTimeout(() => (wc = 0), 3500);
+          } else {
+            wipeAll().then(() => location.reload());
+          }
+        };
+        $("lo").onclick = async () => {
+          await flush();
+          if (SB) await SB.auth.signOut();
+          location.reload();
+        };
+        let rc = 0;
+        $("rst").onclick = () => {
+          if (!rc) {
+            rc = 1;
+            toast("한 번 더 누르면 초기화돼요");
+            setTimeout(() => (rc = 0), 3000);
+          } else {
+            delKeys(["start", "at"]).then(() => location.reload());
+          }
+        };
+        if (!/[?&]dev/.test(location.search)) $("devbox").remove();
+        icr();
+        mood();
+        p1();
+        p2();
+        grid();
+        shp();
+        cr();
+        setup();
+        fld();
+        dv();
+        rfs();
+        stkBook();
+        setBun("hub");
+      }
+      boot();
+    </script>
+  </body>
+</html>
